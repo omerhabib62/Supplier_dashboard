@@ -1,0 +1,1928 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="db_vendorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="customers_requisation">
+          <Key>
+            <PropertyRef Name="requisation_no" />
+          </Key>
+          <Property Name="customer_user_ID" Type="int" />
+          <Property Name="Date_of_requistion" Type="date" />
+          <Property Name="quotation_deadline" Type="date" />
+          <Property Name="requisation_no" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="iscompleted" Type="bit" />
+          <Property Name="inprogress" Type="bit" />
+          <Property Name="requisation_description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="db_User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_desc_id" Type="int" />
+          <Property Name="is_admin" Type="bit" />
+          <Property Name="is_customer" Type="bit" />
+          <Property Name="is_supplier" Type="bit" />
+          <Property Name="user_loginID" Type="varchar" MaxLength="20" />
+          <Property Name="user_password" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="DC_invoice">
+          <Key>
+            <PropertyRef Name="DC_invoice_ID" />
+          </Key>
+          <Property Name="DC_invoice_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_Code" Type="int" />
+          <Property Name="invoice_date" Type="datetime" />
+          <Property Name="supplier_userID" Type="int" />
+          <Property Name="total" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="DC_items">
+          <Key>
+            <PropertyRef Name="DC_item_ID" />
+          </Key>
+          <Property Name="DC_item_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DC_invoice_ID" Type="int" />
+          <Property Name="item_Code" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="desc_" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="email_id" />
+          </Key>
+          <Property Name="email_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email_user_ID" Type="int" />
+          <Property Name="email_subject" Type="varchar" MaxLength="500" />
+          <Property Name="email_from" Type="varchar" MaxLength="100" />
+          <Property Name="email_to" Type="varchar" MaxLength="100" />
+          <Property Name="email_body" Type="varchar(max)" />
+          <Property Name="email_cc" Type="varchar" MaxLength="50" />
+          <Property Name="email_bcc" Type="varchar" MaxLength="50" />
+          <Property Name="is_received_from_vendor" Type="bit" />
+          <Property Name="is_received_from_customer" Type="bit" />
+          <Property Name="is_mail_safe" Type="bit" />
+        </EntityType>
+        <EntityType Name="general_sales_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_ID" />
+          </Key>
+          <Property Name="Invoice_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_userID" Type="int" />
+          <Property Name="PO_code" Type="int" />
+          <Property Name="quotation_code" Type="int" />
+          <Property Name="invoice_date" Type="datetime" />
+          <Property Name="total" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="general_sales_items">
+          <Key>
+            <PropertyRef Name="gS_item_ID" />
+          </Key>
+          <Property Name="gS_item_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invoice_ID" Type="int" />
+          <Property Name="item_code" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="values_of_good" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="item_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_name" Type="varchar" MaxLength="100" />
+          <Property Name="item_category_code" Type="int" />
+          <Property Name="item_brand_code" Type="int" />
+          <Property Name="item_desc" Type="varchar" MaxLength="300" />
+          <Property Name="measured_in" Type="varchar" MaxLength="100" />
+          <Property Name="size" Type="varchar" MaxLength="100" />
+          <Property Name="unit_price" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="item_brand">
+          <Key>
+            <PropertyRef Name="item_brand_code" />
+          </Key>
+          <Property Name="item_brand_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_brand_name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="item_category">
+          <Key>
+            <PropertyRef Name="item_category_code" />
+          </Key>
+          <Property Name="item_category_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_category_name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="PO">
+          <Key>
+            <PropertyRef Name="PO_code" />
+          </Key>
+          <Property Name="PO_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" />
+          <Property Name="quotation_code" Type="int" />
+          <Property Name="PO_date" Type="date" />
+          <Property Name="order_ID" Type="int" />
+          <Property Name="PO_desc" Type="varchar" MaxLength="300" />
+          <Property Name="shipping_address" Type="varchar" MaxLength="100" />
+          <Property Name="shipping_datetime" Type="datetime" />
+          <Property Name="isfrieghtonBoard" Type="bit" />
+        </EntityType>
+        <EntityType Name="PO_items">
+          <Key>
+            <PropertyRef Name="PO_item_code" />
+          </Key>
+          <Property Name="PO_item_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PO_code" Type="int" />
+          <Property Name="item_code" Type="int" />
+          <Property Name="desc_" Type="varchar" MaxLength="500" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="cost_of_frieght" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="quotation">
+          <Key>
+            <PropertyRef Name="quotation_code" />
+          </Key>
+          <Property Name="quotation_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vendor_user_id" Type="int" />
+          <Property Name="customer_user_id" Type="int" />
+          <Property Name="submission_date" Type="date" />
+          <Property Name="written_on" Type="date" />
+          <Property Name="order_code" Type="int" />
+          <Property Name="total_price" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="quotation_items">
+          <Key>
+            <PropertyRef Name="quotation_items_code" />
+          </Key>
+          <Property Name="quotation_items_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="quotation_code" Type="int" />
+          <Property Name="item_code" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="desc_" Type="varchar" MaxLength="500" />
+          <Property Name="value_of_good" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="requisation_items">
+          <Key>
+            <PropertyRef Name="requisation_item_id" />
+          </Key>
+          <Property Name="requisation_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="requisation_no" Type="int" />
+          <Property Name="requisation_item_code" Type="int" />
+          <Property Name="requisation_desc" Type="varchar" MaxLength="500" />
+          <Property Name="quantity" Type="varchar" MaxLength="100" />
+          <Property Name="brand" Type="varchar" MaxLength="100" />
+          <Property Name="price_suggester" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ST_invoice">
+          <Key>
+            <PropertyRef Name="ST_Invoice_ID" />
+          </Key>
+          <Property Name="ST_Invoice_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplier_userID" Type="int" />
+          <Property Name="PO_code" Type="int" />
+          <Property Name="quotation_code" Type="int" />
+          <Property Name="invoice_date" Type="datetime" />
+          <Property Name="total_special_excise_duty" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="total_sales_tax" Type="decimal" Precision="16" Scale="2" />
+          <Property Name="total_value_of_goods" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="ST_items">
+          <Key>
+            <PropertyRef Name="ST_item_ID" />
+          </Key>
+          <Property Name="ST_item_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ST_Invoice_ID" Type="int" />
+          <Property Name="item_code" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="sales_tax" Type="int" />
+          <Property Name="desc_" Type="varchar" MaxLength="500" />
+          <Property Name="values_of_good" Type="decimal" Precision="16" Scale="2" />
+        </EntityType>
+        <EntityType Name="supplier_items">
+          <Key>
+            <PropertyRef Name="supplier_item_id" />
+          </Key>
+          <Property Name="supplier_item_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="item_code" Type="int" />
+          <Property Name="userID" Type="int" />
+        </EntityType>
+        <EntityType Name="system_order">
+          <Key>
+            <PropertyRef Name="order_code" />
+          </Key>
+          <Property Name="order_code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customer_user_ID" Type="int" />
+          <Property Name="supplier_user_ID" Type="int" />
+          <Property Name="desc_" Type="varchar" MaxLength="500" />
+          <Property Name="completion_percentage" Type="varchar" MaxLength="1" />
+          <Property Name="start_order_date" Type="datetime" />
+          <Property Name="end_order_date" Type="datetime" />
+          <Property Name="iscompleted" Type="bit" />
+          <Property Name="is_submit_po_delivered_to_supplier" Type="bit" />
+          <Property Name="is_submit_invoice_delivered_by_supplier" Type="bit" />
+          <Property Name="is_submit_salestaxinvoice_delivered_by_supplier" Type="bit" />
+          <Property Name="is_submit_delieverychallaninvoice_delivered_by_supplier" Type="bit" />
+          <Property Name="received_quotation_from_customer" Type="bit" />
+          <Property Name="received_po_from_customer" Type="bit" />
+          <Property Name="mailed_quotation_to_customer" Type="bit" />
+          <Property Name="mailed_salestaxinvoice_to_customer" Type="bit" />
+          <Property Name="mailed_deliverychallan_invoice_to_customer" Type="bit" />
+        </EntityType>
+        <EntityType Name="user_desc">
+          <Key>
+            <PropertyRef Name="user_descId" />
+          </Key>
+          <Property Name="user_descId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" />
+          <Property Name="fullname" Type="varchar" MaxLength="50" />
+          <Property Name="company" Type="varchar" MaxLength="100" />
+          <Property Name="STN_reg_no" Type="varchar" MaxLength="100" />
+          <Property Name="office_address" Type="varchar" MaxLength="100" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="Employment_title" Type="varchar" MaxLength="100" />
+          <Property Name="contact_type" Type="varchar" MaxLength="100" />
+          <Property Name="email_address" Type="varchar" MaxLength="100" />
+          <Property Name="company_website" Type="varchar" MaxLength="50" />
+          <Property Name="fax_number" Type="varchar" MaxLength="100" />
+          <Property Name="personal_phone" Type="varchar" MaxLength="100" />
+          <Property Name="business_phone" Type="varchar" MaxLength="100" />
+          <Property Name="postal_code" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__customers__custo__07C12930">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="customers_requisation" Type="Self.customers_requisation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="customers_requisation">
+              <PropertyRef Name="customer_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__db_User__user_de__59FA5E80">
+          <End Role="user_desc" Type="Self.user_desc" Multiplicity="0..1" />
+          <End Role="db_User" Type="Self.db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_desc">
+              <PropertyRef Name="user_descId" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="user_desc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_invoic__PO_Co__6D0D32F4">
+          <End Role="PO" Type="Self.PO" Multiplicity="0..1" />
+          <End Role="DC_invoice" Type="Self.DC_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="DC_invoice">
+              <PropertyRef Name="PO_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_invoic__suppl__6E01572D">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="DC_invoice" Type="Self.DC_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="DC_invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_items__DC_inv__6C190EBB">
+          <End Role="DC_invoice" Type="Self.DC_invoice" Multiplicity="0..1" />
+          <End Role="DC_items" Type="Self.DC_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DC_invoice">
+              <PropertyRef Name="DC_invoice_ID" />
+            </Principal>
+            <Dependent Role="DC_items">
+              <PropertyRef Name="DC_invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Email__email_use__17036CC0">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="Email" Type="Self.Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="email_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__Invoi__6A30C649">
+          <End Role="general_sales_Invoice" Type="Self.general_sales_Invoice" Multiplicity="0..1" />
+          <End Role="general_sales_items" Type="Self.general_sales_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="general_sales_Invoice">
+              <PropertyRef Name="Invoice_ID" />
+            </Principal>
+            <Dependent Role="general_sales_items">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__item___6B24EA82">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="general_sales_items" Type="Self.general_sales_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="general_sales_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__PO_co__68487DD7">
+          <End Role="PO" Type="Self.PO" Multiplicity="0..1" />
+          <End Role="general_sales_Invoice" Type="Self.general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__quota__693CA210">
+          <End Role="quotation" Type="Self.quotation" Multiplicity="0..1" />
+          <End Role="general_sales_Invoice" Type="Self.general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__suppl__6754599E">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="general_sales_Invoice" Type="Self.general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__item__item_brand__628FA481">
+          <End Role="item_brand" Type="Self.item_brand" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item_brand">
+              <PropertyRef Name="item_brand_code" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="item_brand_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__item__item_categ__619B8048">
+          <End Role="item_category" Type="Self.item_category" Multiplicity="0..1" />
+          <End Role="item" Type="Self.item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item_category">
+              <PropertyRef Name="item_category_code" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="item_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__order_ID__70DDC3D8">
+          <End Role="system_order" Type="Self.system_order" Multiplicity="0..1" />
+          <End Role="PO" Type="Self.PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="system_order">
+              <PropertyRef Name="order_code" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__quotation_co__6FE99F9F">
+          <End Role="quotation" Type="Self.quotation" Multiplicity="0..1" />
+          <End Role="PO" Type="Self.PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__userID__6EF57B66">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="PO" Type="Self.PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO_items__item_c__66603565">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="PO_items" Type="Self.PO_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="PO_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO_items__PO_cod__656C112C">
+          <End Role="PO" Type="Self.PO" Multiplicity="0..1" />
+          <End Role="PO_items" Type="Self.PO_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="PO_items">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__custo__59063A47">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="quotation" Type="Self.quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="quotation">
+              <PropertyRef Name="customer_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__item___5629CD9C">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="quotation_items" Type="Self.quotation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="quotation_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__quota__571DF1D5">
+          <End Role="quotation" Type="Self.quotation" Multiplicity="0..1" />
+          <End Role="quotation_items" Type="Self.quotation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="quotation_items">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__vendo__5812160E">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="quotation" Type="Self.quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="quotation">
+              <PropertyRef Name="vendor_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisati__requi__09A971A2">
+          <End Role="customers_requisation" Type="Self.customers_requisation" Multiplicity="0..1" />
+          <End Role="requisation_items" Type="Self.requisation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers_requisation">
+              <PropertyRef Name="requisation_no" />
+            </Principal>
+            <Dependent Role="requisation_items">
+              <PropertyRef Name="requisation_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisati__requi__0A9D95DB">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="requisation_items" Type="Self.requisation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="requisation_items">
+              <PropertyRef Name="requisation_item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__PO_co__5EBF139D">
+          <End Role="PO" Type="Self.PO" Multiplicity="0..1" />
+          <End Role="ST_invoice" Type="Self.ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__quota__5FB337D6">
+          <End Role="quotation" Type="Self.quotation" Multiplicity="0..1" />
+          <End Role="ST_invoice" Type="Self.ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__suppl__5DCAEF64">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="ST_invoice" Type="Self.ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_items__ST_Inv__60A75C0F">
+          <End Role="ST_invoice" Type="Self.ST_invoice" Multiplicity="0..1" />
+          <End Role="ST_items" Type="Self.ST_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ST_invoice">
+              <PropertyRef Name="ST_Invoice_ID" />
+            </Principal>
+            <Dependent Role="ST_items">
+              <PropertyRef Name="ST_Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___item___5CD6CB2B">
+          <End Role="item" Type="Self.item" Multiplicity="0..1" />
+          <End Role="supplier_items" Type="Self.supplier_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="supplier_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___userI__5BE2A6F2">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="supplier_items" Type="Self.supplier_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="supplier_items">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__system_or__custo__6383C8BA">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="system_order" Type="Self.system_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="system_order">
+              <PropertyRef Name="customer_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__system_or__suppl__6477ECF3">
+          <End Role="db_User" Type="Self.db_User" Multiplicity="0..1" />
+          <End Role="system_order" Type="Self.system_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="system_order">
+              <PropertyRef Name="supplier_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_vendorModelStoreContainer">
+          <EntitySet Name="customers_requisation" EntityType="Self.customers_requisation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_User" EntityType="Self.db_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DC_invoice" EntityType="Self.DC_invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DC_items" EntityType="Self.DC_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Email" EntityType="Self.Email" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="general_sales_Invoice" EntityType="Self.general_sales_Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="general_sales_items" EntityType="Self.general_sales_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_brand" EntityType="Self.item_brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="item_category" EntityType="Self.item_category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PO" EntityType="Self.PO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PO_items" EntityType="Self.PO_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quotation" EntityType="Self.quotation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="quotation_items" EntityType="Self.quotation_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="requisation_items" EntityType="Self.requisation_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ST_invoice" EntityType="Self.ST_invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ST_items" EntityType="Self.ST_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier_items" EntityType="Self.supplier_items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="system_order" EntityType="Self.system_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_desc" EntityType="Self.user_desc" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__customers__custo__07C12930" Association="Self.FK__customers__custo__07C12930">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="customers_requisation" EntitySet="customers_requisation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__db_User__user_de__59FA5E80" Association="Self.FK__db_User__user_de__59FA5E80">
+            <End Role="user_desc" EntitySet="user_desc" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_invoic__PO_Co__6D0D32F4" Association="Self.FK__DC_invoic__PO_Co__6D0D32F4">
+            <End Role="PO" EntitySet="PO" />
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_invoic__suppl__6E01572D" Association="Self.FK__DC_invoic__suppl__6E01572D">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_items__DC_inv__6C190EBB" Association="Self.FK__DC_items__DC_inv__6C190EBB">
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+            <End Role="DC_items" EntitySet="DC_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Email__email_use__17036CC0" Association="Self.FK__Email__email_use__17036CC0">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="Email" EntitySet="Email" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__Invoi__6A30C649" Association="Self.FK__general_s__Invoi__6A30C649">
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+            <End Role="general_sales_items" EntitySet="general_sales_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__item___6B24EA82" Association="Self.FK__general_s__item___6B24EA82">
+            <End Role="item" EntitySet="item" />
+            <End Role="general_sales_items" EntitySet="general_sales_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__PO_co__68487DD7" Association="Self.FK__general_s__PO_co__68487DD7">
+            <End Role="PO" EntitySet="PO" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__quota__693CA210" Association="Self.FK__general_s__quota__693CA210">
+            <End Role="quotation" EntitySet="quotation" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__suppl__6754599E" Association="Self.FK__general_s__suppl__6754599E">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__item__item_brand__628FA481" Association="Self.FK__item__item_brand__628FA481">
+            <End Role="item_brand" EntitySet="item_brand" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__item__item_categ__619B8048" Association="Self.FK__item__item_categ__619B8048">
+            <End Role="item_category" EntitySet="item_category" />
+            <End Role="item" EntitySet="item" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__order_ID__70DDC3D8" Association="Self.FK__PO__order_ID__70DDC3D8">
+            <End Role="system_order" EntitySet="system_order" />
+            <End Role="PO" EntitySet="PO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__quotation_co__6FE99F9F" Association="Self.FK__PO__quotation_co__6FE99F9F">
+            <End Role="quotation" EntitySet="quotation" />
+            <End Role="PO" EntitySet="PO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__userID__6EF57B66" Association="Self.FK__PO__userID__6EF57B66">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="PO" EntitySet="PO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO_items__item_c__66603565" Association="Self.FK__PO_items__item_c__66603565">
+            <End Role="item" EntitySet="item" />
+            <End Role="PO_items" EntitySet="PO_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO_items__PO_cod__656C112C" Association="Self.FK__PO_items__PO_cod__656C112C">
+            <End Role="PO" EntitySet="PO" />
+            <End Role="PO_items" EntitySet="PO_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__custo__59063A47" Association="Self.FK__quotation__custo__59063A47">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="quotation" EntitySet="quotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__item___5629CD9C" Association="Self.FK__quotation__item___5629CD9C">
+            <End Role="item" EntitySet="item" />
+            <End Role="quotation_items" EntitySet="quotation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__quota__571DF1D5" Association="Self.FK__quotation__quota__571DF1D5">
+            <End Role="quotation" EntitySet="quotation" />
+            <End Role="quotation_items" EntitySet="quotation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__vendo__5812160E" Association="Self.FK__quotation__vendo__5812160E">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="quotation" EntitySet="quotation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisati__requi__09A971A2" Association="Self.FK__requisati__requi__09A971A2">
+            <End Role="customers_requisation" EntitySet="customers_requisation" />
+            <End Role="requisation_items" EntitySet="requisation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisati__requi__0A9D95DB" Association="Self.FK__requisati__requi__0A9D95DB">
+            <End Role="item" EntitySet="item" />
+            <End Role="requisation_items" EntitySet="requisation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__PO_co__5EBF139D" Association="Self.FK__ST_invoic__PO_co__5EBF139D">
+            <End Role="PO" EntitySet="PO" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__quota__5FB337D6" Association="Self.FK__ST_invoic__quota__5FB337D6">
+            <End Role="quotation" EntitySet="quotation" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__suppl__5DCAEF64" Association="Self.FK__ST_invoic__suppl__5DCAEF64">
+            <End Role="item" EntitySet="item" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_items__ST_Inv__60A75C0F" Association="Self.FK__ST_items__ST_Inv__60A75C0F">
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+            <End Role="ST_items" EntitySet="ST_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___item___5CD6CB2B" Association="Self.FK__supplier___item___5CD6CB2B">
+            <End Role="item" EntitySet="item" />
+            <End Role="supplier_items" EntitySet="supplier_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___userI__5BE2A6F2" Association="Self.FK__supplier___userI__5BE2A6F2">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="supplier_items" EntitySet="supplier_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__system_or__custo__6383C8BA" Association="Self.FK__system_or__custo__6383C8BA">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="system_order" EntitySet="system_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__system_or__suppl__6477ECF3" Association="Self.FK__system_or__suppl__6477ECF3">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="system_order" EntitySet="system_order" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_vendorModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="db_vendor" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="customers_requisation" EntityType="db_vendorModel.customers_requisation" />
+          <EntitySet Name="db_User" EntityType="db_vendorModel.db_User" />
+          <EntitySet Name="DC_invoice" EntityType="db_vendorModel.DC_invoice" />
+          <EntitySet Name="DC_items" EntityType="db_vendorModel.DC_items" />
+          <EntitySet Name="Emails" EntityType="db_vendorModel.Email" />
+          <EntitySet Name="general_sales_Invoice" EntityType="db_vendorModel.general_sales_Invoice" />
+          <EntitySet Name="general_sales_items" EntityType="db_vendorModel.general_sales_items" />
+          <EntitySet Name="items" EntityType="db_vendorModel.item" />
+          <EntitySet Name="item_brand" EntityType="db_vendorModel.item_brand" />
+          <EntitySet Name="item_category" EntityType="db_vendorModel.item_category" />
+          <EntitySet Name="POes" EntityType="db_vendorModel.PO" />
+          <EntitySet Name="PO_items" EntityType="db_vendorModel.PO_items" />
+          <EntitySet Name="quotations" EntityType="db_vendorModel.quotation" />
+          <EntitySet Name="quotation_items" EntityType="db_vendorModel.quotation_items" />
+          <EntitySet Name="requisation_items" EntityType="db_vendorModel.requisation_items" />
+          <EntitySet Name="ST_invoice" EntityType="db_vendorModel.ST_invoice" />
+          <EntitySet Name="ST_items" EntityType="db_vendorModel.ST_items" />
+          <EntitySet Name="supplier_items" EntityType="db_vendorModel.supplier_items" />
+          <EntitySet Name="system_order" EntityType="db_vendorModel.system_order" />
+          <EntitySet Name="user_desc" EntityType="db_vendorModel.user_desc" />
+          <AssociationSet Name="FK__customers__custo__07C12930" Association="db_vendorModel.FK__customers__custo__07C12930">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="customers_requisation" EntitySet="customers_requisation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisati__requi__09A971A2" Association="db_vendorModel.FK__requisati__requi__09A971A2">
+            <End Role="customers_requisation" EntitySet="customers_requisation" />
+            <End Role="requisation_items" EntitySet="requisation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__db_User__user_de__59FA5E80" Association="db_vendorModel.FK__db_User__user_de__59FA5E80">
+            <End Role="user_desc" EntitySet="user_desc" />
+            <End Role="db_User" EntitySet="db_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_invoic__suppl__6E01572D" Association="db_vendorModel.FK__DC_invoic__suppl__6E01572D">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Email__email_use__17036CC0" Association="db_vendorModel.FK__Email__email_use__17036CC0">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="Email" EntitySet="Emails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__suppl__6754599E" Association="db_vendorModel.FK__general_s__suppl__6754599E">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__userID__6EF57B66" Association="db_vendorModel.FK__PO__userID__6EF57B66">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="PO" EntitySet="POes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__custo__59063A47" Association="db_vendorModel.FK__quotation__custo__59063A47">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="quotation" EntitySet="quotations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__vendo__5812160E" Association="db_vendorModel.FK__quotation__vendo__5812160E">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="quotation" EntitySet="quotations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___userI__5BE2A6F2" Association="db_vendorModel.FK__supplier___userI__5BE2A6F2">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="supplier_items" EntitySet="supplier_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__system_or__custo__6383C8BA" Association="db_vendorModel.FK__system_or__custo__6383C8BA">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="system_order" EntitySet="system_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__system_or__suppl__6477ECF3" Association="db_vendorModel.FK__system_or__suppl__6477ECF3">
+            <End Role="db_User" EntitySet="db_User" />
+            <End Role="system_order" EntitySet="system_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_invoic__PO_Co__6D0D32F4" Association="db_vendorModel.FK__DC_invoic__PO_Co__6D0D32F4">
+            <End Role="PO" EntitySet="POes" />
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DC_items__DC_inv__6C190EBB" Association="db_vendorModel.FK__DC_items__DC_inv__6C190EBB">
+            <End Role="DC_invoice" EntitySet="DC_invoice" />
+            <End Role="DC_items" EntitySet="DC_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__Invoi__6A30C649" Association="db_vendorModel.FK__general_s__Invoi__6A30C649">
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+            <End Role="general_sales_items" EntitySet="general_sales_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__PO_co__68487DD7" Association="db_vendorModel.FK__general_s__PO_co__68487DD7">
+            <End Role="PO" EntitySet="POes" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__quota__693CA210" Association="db_vendorModel.FK__general_s__quota__693CA210">
+            <End Role="quotation" EntitySet="quotations" />
+            <End Role="general_sales_Invoice" EntitySet="general_sales_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__general_s__item___6B24EA82" Association="db_vendorModel.FK__general_s__item___6B24EA82">
+            <End Role="item" EntitySet="items" />
+            <End Role="general_sales_items" EntitySet="general_sales_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__item__item_brand__628FA481" Association="db_vendorModel.FK__item__item_brand__628FA481">
+            <End Role="item_brand" EntitySet="item_brand" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__item__item_categ__619B8048" Association="db_vendorModel.FK__item__item_categ__619B8048">
+            <End Role="item_category" EntitySet="item_category" />
+            <End Role="item" EntitySet="items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO_items__item_c__66603565" Association="db_vendorModel.FK__PO_items__item_c__66603565">
+            <End Role="item" EntitySet="items" />
+            <End Role="PO_items" EntitySet="PO_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__item___5629CD9C" Association="db_vendorModel.FK__quotation__item___5629CD9C">
+            <End Role="item" EntitySet="items" />
+            <End Role="quotation_items" EntitySet="quotation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__requisati__requi__0A9D95DB" Association="db_vendorModel.FK__requisati__requi__0A9D95DB">
+            <End Role="item" EntitySet="items" />
+            <End Role="requisation_items" EntitySet="requisation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__suppl__5DCAEF64" Association="db_vendorModel.FK__ST_invoic__suppl__5DCAEF64">
+            <End Role="item" EntitySet="items" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__supplier___item___5CD6CB2B" Association="db_vendorModel.FK__supplier___item___5CD6CB2B">
+            <End Role="item" EntitySet="items" />
+            <End Role="supplier_items" EntitySet="supplier_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__order_ID__70DDC3D8" Association="db_vendorModel.FK__PO__order_ID__70DDC3D8">
+            <End Role="system_order" EntitySet="system_order" />
+            <End Role="PO" EntitySet="POes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO__quotation_co__6FE99F9F" Association="db_vendorModel.FK__PO__quotation_co__6FE99F9F">
+            <End Role="quotation" EntitySet="quotations" />
+            <End Role="PO" EntitySet="POes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PO_items__PO_cod__656C112C" Association="db_vendorModel.FK__PO_items__PO_cod__656C112C">
+            <End Role="PO" EntitySet="POes" />
+            <End Role="PO_items" EntitySet="PO_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__PO_co__5EBF139D" Association="db_vendorModel.FK__ST_invoic__PO_co__5EBF139D">
+            <End Role="PO" EntitySet="POes" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__quotation__quota__571DF1D5" Association="db_vendorModel.FK__quotation__quota__571DF1D5">
+            <End Role="quotation" EntitySet="quotations" />
+            <End Role="quotation_items" EntitySet="quotation_items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_invoic__quota__5FB337D6" Association="db_vendorModel.FK__ST_invoic__quota__5FB337D6">
+            <End Role="quotation" EntitySet="quotations" />
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ST_items__ST_Inv__60A75C0F" Association="db_vendorModel.FK__ST_items__ST_Inv__60A75C0F">
+            <End Role="ST_invoice" EntitySet="ST_invoice" />
+            <End Role="ST_items" EntitySet="ST_items" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="customers_requisation">
+          <Key>
+            <PropertyRef Name="requisation_no" />
+          </Key>
+          <Property Name="customer_user_ID" Type="Int32" />
+          <Property Name="Date_of_requistion" Type="DateTime" Precision="0" />
+          <Property Name="quotation_deadline" Type="DateTime" Precision="0" />
+          <Property Name="requisation_no" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="iscompleted" Type="Boolean" />
+          <Property Name="inprogress" Type="Boolean" />
+          <Property Name="requisation_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__customers__custo__07C12930" FromRole="customers_requisation" ToRole="db_User" />
+          <NavigationProperty Name="requisation_items" Relationship="db_vendorModel.FK__requisati__requi__09A971A2" FromRole="customers_requisation" ToRole="requisation_items" />
+        </EntityType>
+        <EntityType Name="db_User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_desc_id" Type="Int32" />
+          <Property Name="is_admin" Type="Boolean" />
+          <Property Name="is_customer" Type="Boolean" />
+          <Property Name="is_supplier" Type="Boolean" />
+          <Property Name="user_loginID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="user_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customers_requisation" Relationship="db_vendorModel.FK__customers__custo__07C12930" FromRole="db_User" ToRole="customers_requisation" />
+          <NavigationProperty Name="user_desc" Relationship="db_vendorModel.FK__db_User__user_de__59FA5E80" FromRole="db_User" ToRole="user_desc" />
+          <NavigationProperty Name="DC_invoice" Relationship="db_vendorModel.FK__DC_invoic__suppl__6E01572D" FromRole="db_User" ToRole="DC_invoice" />
+          <NavigationProperty Name="Emails" Relationship="db_vendorModel.FK__Email__email_use__17036CC0" FromRole="db_User" ToRole="Email" />
+          <NavigationProperty Name="general_sales_Invoice" Relationship="db_vendorModel.FK__general_s__suppl__6754599E" FromRole="db_User" ToRole="general_sales_Invoice" />
+          <NavigationProperty Name="POes" Relationship="db_vendorModel.FK__PO__userID__6EF57B66" FromRole="db_User" ToRole="PO" />
+          <NavigationProperty Name="quotations" Relationship="db_vendorModel.FK__quotation__custo__59063A47" FromRole="db_User" ToRole="quotation" />
+          <NavigationProperty Name="quotations1" Relationship="db_vendorModel.FK__quotation__vendo__5812160E" FromRole="db_User" ToRole="quotation" />
+          <NavigationProperty Name="supplier_items" Relationship="db_vendorModel.FK__supplier___userI__5BE2A6F2" FromRole="db_User" ToRole="supplier_items" />
+          <NavigationProperty Name="system_order" Relationship="db_vendorModel.FK__system_or__custo__6383C8BA" FromRole="db_User" ToRole="system_order" />
+          <NavigationProperty Name="system_order1" Relationship="db_vendorModel.FK__system_or__suppl__6477ECF3" FromRole="db_User" ToRole="system_order" />
+        </EntityType>
+        <EntityType Name="DC_invoice">
+          <Key>
+            <PropertyRef Name="DC_invoice_ID" />
+          </Key>
+          <Property Name="DC_invoice_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_Code" Type="Int32" />
+          <Property Name="invoice_date" Type="DateTime" Precision="3" />
+          <Property Name="supplier_userID" Type="Int32" />
+          <Property Name="total" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__DC_invoic__suppl__6E01572D" FromRole="DC_invoice" ToRole="db_User" />
+          <NavigationProperty Name="PO" Relationship="db_vendorModel.FK__DC_invoic__PO_Co__6D0D32F4" FromRole="DC_invoice" ToRole="PO" />
+          <NavigationProperty Name="DC_items" Relationship="db_vendorModel.FK__DC_items__DC_inv__6C190EBB" FromRole="DC_invoice" ToRole="DC_items" />
+        </EntityType>
+        <EntityType Name="DC_items">
+          <Key>
+            <PropertyRef Name="DC_item_ID" />
+          </Key>
+          <Property Name="DC_item_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DC_invoice_ID" Type="Int32" />
+          <Property Name="item_Code" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DC_invoice" Relationship="db_vendorModel.FK__DC_items__DC_inv__6C190EBB" FromRole="DC_items" ToRole="DC_invoice" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="email_id" />
+          </Key>
+          <Property Name="email_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email_user_ID" Type="Int32" />
+          <Property Name="email_subject" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="email_from" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="email_cc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email_bcc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="is_received_from_vendor" Type="Boolean" />
+          <Property Name="is_received_from_customer" Type="Boolean" />
+          <Property Name="is_mail_safe" Type="Boolean" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__Email__email_use__17036CC0" FromRole="Email" ToRole="db_User" />
+        </EntityType>
+        <EntityType Name="general_sales_Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_ID" />
+          </Key>
+          <Property Name="Invoice_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_userID" Type="Int32" />
+          <Property Name="PO_code" Type="Int32" />
+          <Property Name="quotation_code" Type="Int32" />
+          <Property Name="invoice_date" Type="DateTime" Precision="3" />
+          <Property Name="total" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__general_s__suppl__6754599E" FromRole="general_sales_Invoice" ToRole="db_User" />
+          <NavigationProperty Name="general_sales_items" Relationship="db_vendorModel.FK__general_s__Invoi__6A30C649" FromRole="general_sales_Invoice" ToRole="general_sales_items" />
+          <NavigationProperty Name="PO" Relationship="db_vendorModel.FK__general_s__PO_co__68487DD7" FromRole="general_sales_Invoice" ToRole="PO" />
+          <NavigationProperty Name="quotation" Relationship="db_vendorModel.FK__general_s__quota__693CA210" FromRole="general_sales_Invoice" ToRole="quotation" />
+        </EntityType>
+        <EntityType Name="general_sales_items">
+          <Key>
+            <PropertyRef Name="gS_item_ID" />
+          </Key>
+          <Property Name="gS_item_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invoice_ID" Type="Int32" />
+          <Property Name="item_code" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="values_of_good" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="general_sales_Invoice" Relationship="db_vendorModel.FK__general_s__Invoi__6A30C649" FromRole="general_sales_items" ToRole="general_sales_Invoice" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__general_s__item___6B24EA82" FromRole="general_sales_items" ToRole="item" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="item_code" />
+          </Key>
+          <Property Name="item_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="item_category_code" Type="Int32" />
+          <Property Name="item_brand_code" Type="Int32" />
+          <Property Name="item_desc" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="measured_in" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="unit_price" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="general_sales_items" Relationship="db_vendorModel.FK__general_s__item___6B24EA82" FromRole="item" ToRole="general_sales_items" />
+          <NavigationProperty Name="item_brand" Relationship="db_vendorModel.FK__item__item_brand__628FA481" FromRole="item" ToRole="item_brand" />
+          <NavigationProperty Name="item_category" Relationship="db_vendorModel.FK__item__item_categ__619B8048" FromRole="item" ToRole="item_category" />
+          <NavigationProperty Name="PO_items" Relationship="db_vendorModel.FK__PO_items__item_c__66603565" FromRole="item" ToRole="PO_items" />
+          <NavigationProperty Name="quotation_items" Relationship="db_vendorModel.FK__quotation__item___5629CD9C" FromRole="item" ToRole="quotation_items" />
+          <NavigationProperty Name="requisation_items" Relationship="db_vendorModel.FK__requisati__requi__0A9D95DB" FromRole="item" ToRole="requisation_items" />
+          <NavigationProperty Name="ST_invoice" Relationship="db_vendorModel.FK__ST_invoic__suppl__5DCAEF64" FromRole="item" ToRole="ST_invoice" />
+          <NavigationProperty Name="supplier_items" Relationship="db_vendorModel.FK__supplier___item___5CD6CB2B" FromRole="item" ToRole="supplier_items" />
+        </EntityType>
+        <EntityType Name="item_brand">
+          <Key>
+            <PropertyRef Name="item_brand_code" />
+          </Key>
+          <Property Name="item_brand_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_brand_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="items" Relationship="db_vendorModel.FK__item__item_brand__628FA481" FromRole="item_brand" ToRole="item" />
+        </EntityType>
+        <EntityType Name="item_category">
+          <Key>
+            <PropertyRef Name="item_category_code" />
+          </Key>
+          <Property Name="item_category_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_category_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="items" Relationship="db_vendorModel.FK__item__item_categ__619B8048" FromRole="item_category" ToRole="item" />
+        </EntityType>
+        <EntityType Name="PO">
+          <Key>
+            <PropertyRef Name="PO_code" />
+          </Key>
+          <Property Name="PO_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="quotation_code" Type="Int32" />
+          <Property Name="PO_date" Type="DateTime" Precision="0" />
+          <Property Name="order_ID" Type="Int32" />
+          <Property Name="PO_desc" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="shipping_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="shipping_datetime" Type="DateTime" Precision="3" />
+          <Property Name="isfrieghtonBoard" Type="Boolean" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__PO__userID__6EF57B66" FromRole="PO" ToRole="db_User" />
+          <NavigationProperty Name="DC_invoice" Relationship="db_vendorModel.FK__DC_invoic__PO_Co__6D0D32F4" FromRole="PO" ToRole="DC_invoice" />
+          <NavigationProperty Name="general_sales_Invoice" Relationship="db_vendorModel.FK__general_s__PO_co__68487DD7" FromRole="PO" ToRole="general_sales_Invoice" />
+          <NavigationProperty Name="system_order" Relationship="db_vendorModel.FK__PO__order_ID__70DDC3D8" FromRole="PO" ToRole="system_order" />
+          <NavigationProperty Name="quotation" Relationship="db_vendorModel.FK__PO__quotation_co__6FE99F9F" FromRole="PO" ToRole="quotation" />
+          <NavigationProperty Name="PO_items" Relationship="db_vendorModel.FK__PO_items__PO_cod__656C112C" FromRole="PO" ToRole="PO_items" />
+          <NavigationProperty Name="ST_invoice" Relationship="db_vendorModel.FK__ST_invoic__PO_co__5EBF139D" FromRole="PO" ToRole="ST_invoice" />
+        </EntityType>
+        <EntityType Name="PO_items">
+          <Key>
+            <PropertyRef Name="PO_item_code" />
+          </Key>
+          <Property Name="PO_item_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PO_code" Type="Int32" />
+          <Property Name="item_code" Type="Int32" />
+          <Property Name="desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="cost_of_frieght" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__PO_items__item_c__66603565" FromRole="PO_items" ToRole="item" />
+          <NavigationProperty Name="PO" Relationship="db_vendorModel.FK__PO_items__PO_cod__656C112C" FromRole="PO_items" ToRole="PO" />
+        </EntityType>
+        <EntityType Name="quotation">
+          <Key>
+            <PropertyRef Name="quotation_code" />
+          </Key>
+          <Property Name="quotation_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vendor_user_id" Type="Int32" />
+          <Property Name="customer_user_id" Type="Int32" />
+          <Property Name="submission_date" Type="DateTime" Precision="0" />
+          <Property Name="written_on" Type="DateTime" Precision="0" />
+          <Property Name="order_code" Type="Int32" />
+          <Property Name="total_price" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__quotation__custo__59063A47" FromRole="quotation" ToRole="db_User" />
+          <NavigationProperty Name="db_User1" Relationship="db_vendorModel.FK__quotation__vendo__5812160E" FromRole="quotation" ToRole="db_User" />
+          <NavigationProperty Name="general_sales_Invoice" Relationship="db_vendorModel.FK__general_s__quota__693CA210" FromRole="quotation" ToRole="general_sales_Invoice" />
+          <NavigationProperty Name="POes" Relationship="db_vendorModel.FK__PO__quotation_co__6FE99F9F" FromRole="quotation" ToRole="PO" />
+          <NavigationProperty Name="quotation_items" Relationship="db_vendorModel.FK__quotation__quota__571DF1D5" FromRole="quotation" ToRole="quotation_items" />
+          <NavigationProperty Name="ST_invoice" Relationship="db_vendorModel.FK__ST_invoic__quota__5FB337D6" FromRole="quotation" ToRole="ST_invoice" />
+        </EntityType>
+        <EntityType Name="quotation_items">
+          <Key>
+            <PropertyRef Name="quotation_items_code" />
+          </Key>
+          <Property Name="quotation_items_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="quotation_code" Type="Int32" />
+          <Property Name="item_code" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="value_of_good" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__quotation__item___5629CD9C" FromRole="quotation_items" ToRole="item" />
+          <NavigationProperty Name="quotation" Relationship="db_vendorModel.FK__quotation__quota__571DF1D5" FromRole="quotation_items" ToRole="quotation" />
+        </EntityType>
+        <EntityType Name="requisation_items">
+          <Key>
+            <PropertyRef Name="requisation_item_id" />
+          </Key>
+          <Property Name="requisation_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="requisation_no" Type="Int32" />
+          <Property Name="requisation_item_code" Type="Int32" />
+          <Property Name="requisation_desc" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="brand" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="price_suggester" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="customers_requisation" Relationship="db_vendorModel.FK__requisati__requi__09A971A2" FromRole="requisation_items" ToRole="customers_requisation" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__requisati__requi__0A9D95DB" FromRole="requisation_items" ToRole="item" />
+        </EntityType>
+        <EntityType Name="ST_invoice">
+          <Key>
+            <PropertyRef Name="ST_Invoice_ID" />
+          </Key>
+          <Property Name="ST_Invoice_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplier_userID" Type="Int32" />
+          <Property Name="PO_code" Type="Int32" />
+          <Property Name="quotation_code" Type="Int32" />
+          <Property Name="invoice_date" Type="DateTime" Precision="3" />
+          <Property Name="total_special_excise_duty" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="total_sales_tax" Type="Decimal" Precision="16" Scale="2" />
+          <Property Name="total_value_of_goods" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__ST_invoic__suppl__5DCAEF64" FromRole="ST_invoice" ToRole="item" />
+          <NavigationProperty Name="PO" Relationship="db_vendorModel.FK__ST_invoic__PO_co__5EBF139D" FromRole="ST_invoice" ToRole="PO" />
+          <NavigationProperty Name="quotation" Relationship="db_vendorModel.FK__ST_invoic__quota__5FB337D6" FromRole="ST_invoice" ToRole="quotation" />
+          <NavigationProperty Name="ST_items" Relationship="db_vendorModel.FK__ST_items__ST_Inv__60A75C0F" FromRole="ST_invoice" ToRole="ST_items" />
+        </EntityType>
+        <EntityType Name="ST_items">
+          <Key>
+            <PropertyRef Name="ST_item_ID" />
+          </Key>
+          <Property Name="ST_item_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ST_Invoice_ID" Type="Int32" />
+          <Property Name="item_code" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="sales_tax" Type="Int32" />
+          <Property Name="desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="values_of_good" Type="Decimal" Precision="16" Scale="2" />
+          <NavigationProperty Name="ST_invoice" Relationship="db_vendorModel.FK__ST_items__ST_Inv__60A75C0F" FromRole="ST_items" ToRole="ST_invoice" />
+        </EntityType>
+        <EntityType Name="supplier_items">
+          <Key>
+            <PropertyRef Name="supplier_item_id" />
+          </Key>
+          <Property Name="supplier_item_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="item_code" Type="Int32" />
+          <Property Name="userID" Type="Int32" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__supplier___userI__5BE2A6F2" FromRole="supplier_items" ToRole="db_User" />
+          <NavigationProperty Name="item" Relationship="db_vendorModel.FK__supplier___item___5CD6CB2B" FromRole="supplier_items" ToRole="item" />
+        </EntityType>
+        <EntityType Name="system_order">
+          <Key>
+            <PropertyRef Name="order_code" />
+          </Key>
+          <Property Name="order_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customer_user_ID" Type="Int32" />
+          <Property Name="supplier_user_ID" Type="Int32" />
+          <Property Name="desc_" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="completion_percentage" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="start_order_date" Type="DateTime" Precision="3" />
+          <Property Name="end_order_date" Type="DateTime" Precision="3" />
+          <Property Name="iscompleted" Type="Boolean" />
+          <Property Name="is_submit_po_delivered_to_supplier" Type="Boolean" />
+          <Property Name="is_submit_invoice_delivered_by_supplier" Type="Boolean" />
+          <Property Name="is_submit_salestaxinvoice_delivered_by_supplier" Type="Boolean" />
+          <Property Name="is_submit_delieverychallaninvoice_delivered_by_supplier" Type="Boolean" />
+          <Property Name="received_quotation_from_customer" Type="Boolean" />
+          <Property Name="received_po_from_customer" Type="Boolean" />
+          <Property Name="mailed_quotation_to_customer" Type="Boolean" />
+          <Property Name="mailed_salestaxinvoice_to_customer" Type="Boolean" />
+          <Property Name="mailed_deliverychallan_invoice_to_customer" Type="Boolean" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__system_or__custo__6383C8BA" FromRole="system_order" ToRole="db_User" />
+          <NavigationProperty Name="db_User1" Relationship="db_vendorModel.FK__system_or__suppl__6477ECF3" FromRole="system_order" ToRole="db_User" />
+          <NavigationProperty Name="POes" Relationship="db_vendorModel.FK__PO__order_ID__70DDC3D8" FromRole="system_order" ToRole="PO" />
+        </EntityType>
+        <EntityType Name="user_desc">
+          <Key>
+            <PropertyRef Name="user_descId" />
+          </Key>
+          <Property Name="user_descId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fullname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="STN_reg_no" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="office_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Employment_title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contact_type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="email_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="company_website" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fax_number" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="personal_phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="business_phone" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="postal_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__db_User__user_de__59FA5E80" FromRole="user_desc" ToRole="db_User" />
+        </EntityType>
+        <Association Name="FK__customers__custo__07C12930">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.customers_requisation" Role="customers_requisation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="customers_requisation">
+              <PropertyRef Name="customer_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisati__requi__09A971A2">
+          <End Type="db_vendorModel.customers_requisation" Role="customers_requisation" Multiplicity="0..1" />
+          <End Type="db_vendorModel.requisation_items" Role="requisation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers_requisation">
+              <PropertyRef Name="requisation_no" />
+            </Principal>
+            <Dependent Role="requisation_items">
+              <PropertyRef Name="requisation_no" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__db_User__user_de__59FA5E80">
+          <End Type="db_vendorModel.user_desc" Role="user_desc" Multiplicity="0..1" />
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_desc">
+              <PropertyRef Name="user_descId" />
+            </Principal>
+            <Dependent Role="db_User">
+              <PropertyRef Name="user_desc_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_invoic__suppl__6E01572D">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.DC_invoice" Role="DC_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="DC_invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Email__email_use__17036CC0">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.Email" Role="Email" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Email">
+              <PropertyRef Name="email_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__suppl__6754599E">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.general_sales_Invoice" Role="general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__userID__6EF57B66">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__custo__59063A47">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="quotation">
+              <PropertyRef Name="customer_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__vendo__5812160E">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="quotation">
+              <PropertyRef Name="vendor_user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___userI__5BE2A6F2">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.supplier_items" Role="supplier_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="supplier_items">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__system_or__custo__6383C8BA">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.system_order" Role="system_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="system_order">
+              <PropertyRef Name="customer_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__system_or__suppl__6477ECF3">
+          <End Type="db_vendorModel.db_User" Role="db_User" Multiplicity="0..1" />
+          <End Type="db_vendorModel.system_order" Role="system_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="db_User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="system_order">
+              <PropertyRef Name="supplier_user_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_invoic__PO_Co__6D0D32F4">
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="0..1" />
+          <End Type="db_vendorModel.DC_invoice" Role="DC_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="DC_invoice">
+              <PropertyRef Name="PO_Code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DC_items__DC_inv__6C190EBB">
+          <End Type="db_vendorModel.DC_invoice" Role="DC_invoice" Multiplicity="0..1" />
+          <End Type="db_vendorModel.DC_items" Role="DC_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DC_invoice">
+              <PropertyRef Name="DC_invoice_ID" />
+            </Principal>
+            <Dependent Role="DC_items">
+              <PropertyRef Name="DC_invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__Invoi__6A30C649">
+          <End Type="db_vendorModel.general_sales_Invoice" Role="general_sales_Invoice" Multiplicity="0..1" />
+          <End Type="db_vendorModel.general_sales_items" Role="general_sales_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="general_sales_Invoice">
+              <PropertyRef Name="Invoice_ID" />
+            </Principal>
+            <Dependent Role="general_sales_items">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__PO_co__68487DD7">
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="0..1" />
+          <End Type="db_vendorModel.general_sales_Invoice" Role="general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__quota__693CA210">
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="0..1" />
+          <End Type="db_vendorModel.general_sales_Invoice" Role="general_sales_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="general_sales_Invoice">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__general_s__item___6B24EA82">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.general_sales_items" Role="general_sales_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="general_sales_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__item__item_brand__628FA481">
+          <End Type="db_vendorModel.item_brand" Role="item_brand" Multiplicity="0..1" />
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item_brand">
+              <PropertyRef Name="item_brand_code" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="item_brand_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__item__item_categ__619B8048">
+          <End Type="db_vendorModel.item_category" Role="item_category" Multiplicity="0..1" />
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item_category">
+              <PropertyRef Name="item_category_code" />
+            </Principal>
+            <Dependent Role="item">
+              <PropertyRef Name="item_category_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO_items__item_c__66603565">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.PO_items" Role="PO_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="PO_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__item___5629CD9C">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.quotation_items" Role="quotation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="quotation_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__requisati__requi__0A9D95DB">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.requisation_items" Role="requisation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="requisation_items">
+              <PropertyRef Name="requisation_item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__suppl__5DCAEF64">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.ST_invoice" Role="ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="supplier_userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__supplier___item___5CD6CB2B">
+          <End Type="db_vendorModel.item" Role="item" Multiplicity="0..1" />
+          <End Type="db_vendorModel.supplier_items" Role="supplier_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="item_code" />
+            </Principal>
+            <Dependent Role="supplier_items">
+              <PropertyRef Name="item_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__order_ID__70DDC3D8">
+          <End Type="db_vendorModel.system_order" Role="system_order" Multiplicity="0..1" />
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="system_order">
+              <PropertyRef Name="order_code" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="order_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO__quotation_co__6FE99F9F">
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="0..1" />
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="PO">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PO_items__PO_cod__656C112C">
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="0..1" />
+          <End Type="db_vendorModel.PO_items" Role="PO_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="PO_items">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__PO_co__5EBF139D">
+          <End Type="db_vendorModel.PO" Role="PO" Multiplicity="0..1" />
+          <End Type="db_vendorModel.ST_invoice" Role="ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PO">
+              <PropertyRef Name="PO_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="PO_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__quotation__quota__571DF1D5">
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="0..1" />
+          <End Type="db_vendorModel.quotation_items" Role="quotation_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="quotation_items">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_invoic__quota__5FB337D6">
+          <End Type="db_vendorModel.quotation" Role="quotation" Multiplicity="0..1" />
+          <End Type="db_vendorModel.ST_invoice" Role="ST_invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="quotation">
+              <PropertyRef Name="quotation_code" />
+            </Principal>
+            <Dependent Role="ST_invoice">
+              <PropertyRef Name="quotation_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ST_items__ST_Inv__60A75C0F">
+          <End Type="db_vendorModel.ST_invoice" Role="ST_invoice" Multiplicity="0..1" />
+          <End Type="db_vendorModel.ST_items" Role="ST_items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ST_invoice">
+              <PropertyRef Name="ST_Invoice_ID" />
+            </Principal>
+            <Dependent Role="ST_items">
+              <PropertyRef Name="ST_Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_vendorModelStoreContainer" CdmEntityContainer="db_vendor">
+          <EntitySetMapping Name="customers_requisation">
+            <EntityTypeMapping TypeName="db_vendorModel.customers_requisation">
+              <MappingFragment StoreEntitySet="customers_requisation">
+                <ScalarProperty Name="requisation_description" ColumnName="requisation_description" />
+                <ScalarProperty Name="inprogress" ColumnName="inprogress" />
+                <ScalarProperty Name="iscompleted" ColumnName="iscompleted" />
+                <ScalarProperty Name="requisation_no" ColumnName="requisation_no" />
+                <ScalarProperty Name="quotation_deadline" ColumnName="quotation_deadline" />
+                <ScalarProperty Name="Date_of_requistion" ColumnName="Date_of_requistion" />
+                <ScalarProperty Name="customer_user_ID" ColumnName="customer_user_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_User">
+            <EntityTypeMapping TypeName="db_vendorModel.db_User">
+              <MappingFragment StoreEntitySet="db_User">
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_loginID" ColumnName="user_loginID" />
+                <ScalarProperty Name="is_supplier" ColumnName="is_supplier" />
+                <ScalarProperty Name="is_customer" ColumnName="is_customer" />
+                <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+                <ScalarProperty Name="user_desc_id" ColumnName="user_desc_id" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DC_invoice">
+            <EntityTypeMapping TypeName="db_vendorModel.DC_invoice">
+              <MappingFragment StoreEntitySet="DC_invoice">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="PO_Code" ColumnName="PO_Code" />
+                <ScalarProperty Name="DC_invoice_ID" ColumnName="DC_invoice_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DC_items">
+            <EntityTypeMapping TypeName="db_vendorModel.DC_items">
+              <MappingFragment StoreEntitySet="DC_items">
+                <ScalarProperty Name="desc_" ColumnName="desc_" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item_Code" ColumnName="item_Code" />
+                <ScalarProperty Name="DC_invoice_ID" ColumnName="DC_invoice_ID" />
+                <ScalarProperty Name="DC_item_ID" ColumnName="DC_item_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="db_vendorModel.Email">
+              <MappingFragment StoreEntitySet="Email">
+                <ScalarProperty Name="is_mail_safe" ColumnName="is_mail_safe" />
+                <ScalarProperty Name="is_received_from_customer" ColumnName="is_received_from_customer" />
+                <ScalarProperty Name="is_received_from_vendor" ColumnName="is_received_from_vendor" />
+                <ScalarProperty Name="email_bcc" ColumnName="email_bcc" />
+                <ScalarProperty Name="email_cc" ColumnName="email_cc" />
+                <ScalarProperty Name="email_body" ColumnName="email_body" />
+                <ScalarProperty Name="email_to" ColumnName="email_to" />
+                <ScalarProperty Name="email_from" ColumnName="email_from" />
+                <ScalarProperty Name="email_subject" ColumnName="email_subject" />
+                <ScalarProperty Name="email_user_ID" ColumnName="email_user_ID" />
+                <ScalarProperty Name="email_id" ColumnName="email_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="general_sales_Invoice">
+            <EntityTypeMapping TypeName="db_vendorModel.general_sales_Invoice">
+              <MappingFragment StoreEntitySet="general_sales_Invoice">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+                <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+                <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="general_sales_items">
+            <EntityTypeMapping TypeName="db_vendorModel.general_sales_items">
+              <MappingFragment StoreEntitySet="general_sales_items">
+                <ScalarProperty Name="values_of_good" ColumnName="values_of_good" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+                <ScalarProperty Name="gS_item_ID" ColumnName="gS_item_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="items">
+            <EntityTypeMapping TypeName="db_vendorModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="measured_in" ColumnName="measured_in" />
+                <ScalarProperty Name="item_desc" ColumnName="item_desc" />
+                <ScalarProperty Name="item_brand_code" ColumnName="item_brand_code" />
+                <ScalarProperty Name="item_category_code" ColumnName="item_category_code" />
+                <ScalarProperty Name="item_name" ColumnName="item_name" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_brand">
+            <EntityTypeMapping TypeName="db_vendorModel.item_brand">
+              <MappingFragment StoreEntitySet="item_brand">
+                <ScalarProperty Name="item_brand_name" ColumnName="item_brand_name" />
+                <ScalarProperty Name="item_brand_code" ColumnName="item_brand_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item_category">
+            <EntityTypeMapping TypeName="db_vendorModel.item_category">
+              <MappingFragment StoreEntitySet="item_category">
+                <ScalarProperty Name="item_category_name" ColumnName="item_category_name" />
+                <ScalarProperty Name="item_category_code" ColumnName="item_category_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="POes">
+            <EntityTypeMapping TypeName="db_vendorModel.PO">
+              <MappingFragment StoreEntitySet="PO">
+                <ScalarProperty Name="isfrieghtonBoard" ColumnName="isfrieghtonBoard" />
+                <ScalarProperty Name="shipping_datetime" ColumnName="shipping_datetime" />
+                <ScalarProperty Name="shipping_address" ColumnName="shipping_address" />
+                <ScalarProperty Name="PO_desc" ColumnName="PO_desc" />
+                <ScalarProperty Name="order_ID" ColumnName="order_ID" />
+                <ScalarProperty Name="PO_date" ColumnName="PO_date" />
+                <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PO_items">
+            <EntityTypeMapping TypeName="db_vendorModel.PO_items">
+              <MappingFragment StoreEntitySet="PO_items">
+                <ScalarProperty Name="cost_of_frieght" ColumnName="cost_of_frieght" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="desc_" ColumnName="desc_" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+                <ScalarProperty Name="PO_item_code" ColumnName="PO_item_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quotations">
+            <EntityTypeMapping TypeName="db_vendorModel.quotation">
+              <MappingFragment StoreEntitySet="quotation">
+                <ScalarProperty Name="total_price" ColumnName="total_price" />
+                <ScalarProperty Name="order_code" ColumnName="order_code" />
+                <ScalarProperty Name="written_on" ColumnName="written_on" />
+                <ScalarProperty Name="submission_date" ColumnName="submission_date" />
+                <ScalarProperty Name="customer_user_id" ColumnName="customer_user_id" />
+                <ScalarProperty Name="vendor_user_id" ColumnName="vendor_user_id" />
+                <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quotation_items">
+            <EntityTypeMapping TypeName="db_vendorModel.quotation_items">
+              <MappingFragment StoreEntitySet="quotation_items">
+                <ScalarProperty Name="value_of_good" ColumnName="value_of_good" />
+                <ScalarProperty Name="desc_" ColumnName="desc_" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+                <ScalarProperty Name="quotation_items_code" ColumnName="quotation_items_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requisation_items">
+            <EntityTypeMapping TypeName="db_vendorModel.requisation_items">
+              <MappingFragment StoreEntitySet="requisation_items">
+                <ScalarProperty Name="price_suggester" ColumnName="price_suggester" />
+                <ScalarProperty Name="brand" ColumnName="brand" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="requisation_desc" ColumnName="requisation_desc" />
+                <ScalarProperty Name="requisation_item_code" ColumnName="requisation_item_code" />
+                <ScalarProperty Name="requisation_no" ColumnName="requisation_no" />
+                <ScalarProperty Name="requisation_item_id" ColumnName="requisation_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_invoice">
+            <EntityTypeMapping TypeName="db_vendorModel.ST_invoice">
+              <MappingFragment StoreEntitySet="ST_invoice">
+                <ScalarProperty Name="total_value_of_goods" ColumnName="total_value_of_goods" />
+                <ScalarProperty Name="total_sales_tax" ColumnName="total_sales_tax" />
+                <ScalarProperty Name="total_special_excise_duty" ColumnName="total_special_excise_duty" />
+                <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+                <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+                <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+                <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+                <ScalarProperty Name="ST_Invoice_ID" ColumnName="ST_Invoice_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ST_items">
+            <EntityTypeMapping TypeName="db_vendorModel.ST_items">
+              <MappingFragment StoreEntitySet="ST_items">
+                <ScalarProperty Name="values_of_good" ColumnName="values_of_good" />
+                <ScalarProperty Name="desc_" ColumnName="desc_" />
+                <ScalarProperty Name="sales_tax" ColumnName="sales_tax" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="ST_Invoice_ID" ColumnName="ST_Invoice_ID" />
+                <ScalarProperty Name="ST_item_ID" ColumnName="ST_item_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="supplier_items">
+            <EntityTypeMapping TypeName="db_vendorModel.supplier_items">
+              <MappingFragment StoreEntitySet="supplier_items">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="item_code" ColumnName="item_code" />
+                <ScalarProperty Name="supplier_item_id" ColumnName="supplier_item_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="system_order">
+            <EntityTypeMapping TypeName="db_vendorModel.system_order">
+              <MappingFragment StoreEntitySet="system_order">
+                <ScalarProperty Name="mailed_deliverychallan_invoice_to_customer" ColumnName="mailed_deliverychallan_invoice_to_customer" />
+                <ScalarProperty Name="mailed_salestaxinvoice_to_customer" ColumnName="mailed_salestaxinvoice_to_customer" />
+                <ScalarProperty Name="mailed_quotation_to_customer" ColumnName="mailed_quotation_to_customer" />
+                <ScalarProperty Name="received_po_from_customer" ColumnName="received_po_from_customer" />
+                <ScalarProperty Name="received_quotation_from_customer" ColumnName="received_quotation_from_customer" />
+                <ScalarProperty Name="is_submit_delieverychallaninvoice_delivered_by_supplier" ColumnName="is_submit_delieverychallaninvoice_delivered_by_supplier" />
+                <ScalarProperty Name="is_submit_salestaxinvoice_delivered_by_supplier" ColumnName="is_submit_salestaxinvoice_delivered_by_supplier" />
+                <ScalarProperty Name="is_submit_invoice_delivered_by_supplier" ColumnName="is_submit_invoice_delivered_by_supplier" />
+                <ScalarProperty Name="is_submit_po_delivered_to_supplier" ColumnName="is_submit_po_delivered_to_supplier" />
+                <ScalarProperty Name="iscompleted" ColumnName="iscompleted" />
+                <ScalarProperty Name="end_order_date" ColumnName="end_order_date" />
+                <ScalarProperty Name="start_order_date" ColumnName="start_order_date" />
+                <ScalarProperty Name="completion_percentage" ColumnName="completion_percentage" />
+                <ScalarProperty Name="desc_" ColumnName="desc_" />
+                <ScalarProperty Name="supplier_user_ID" ColumnName="supplier_user_ID" />
+                <ScalarProperty Name="customer_user_ID" ColumnName="customer_user_ID" />
+                <ScalarProperty Name="order_code" ColumnName="order_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_desc">
+            <EntityTypeMapping TypeName="db_vendorModel.user_desc">
+              <MappingFragment StoreEntitySet="user_desc">
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+                <ScalarProperty Name="business_phone" ColumnName="business_phone" />
+                <ScalarProperty Name="personal_phone" ColumnName="personal_phone" />
+                <ScalarProperty Name="fax_number" ColumnName="fax_number" />
+                <ScalarProperty Name="company_website" ColumnName="company_website" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="contact_type" ColumnName="contact_type" />
+                <ScalarProperty Name="Employment_title" ColumnName="Employment_title" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="office_address" ColumnName="office_address" />
+                <ScalarProperty Name="STN_reg_no" ColumnName="STN_reg_no" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="user_descId" ColumnName="user_descId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

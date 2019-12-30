@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_vendorModelStoreContainer" CdmEntityContainer="db_vendor">
+    <EntitySetMapping Name="customers_requisation">
+      <EntityTypeMapping TypeName="db_vendorModel.customers_requisation">
+        <MappingFragment StoreEntitySet="customers_requisation">
+          <ScalarProperty Name="requisation_description" ColumnName="requisation_description" />
+          <ScalarProperty Name="inprogress" ColumnName="inprogress" />
+          <ScalarProperty Name="iscompleted" ColumnName="iscompleted" />
+          <ScalarProperty Name="requisation_no" ColumnName="requisation_no" />
+          <ScalarProperty Name="quotation_deadline" ColumnName="quotation_deadline" />
+          <ScalarProperty Name="Date_of_requistion" ColumnName="Date_of_requistion" />
+          <ScalarProperty Name="customer_user_ID" ColumnName="customer_user_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="db_User">
+      <EntityTypeMapping TypeName="db_vendorModel.db_User">
+        <MappingFragment StoreEntitySet="db_User">
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_loginID" ColumnName="user_loginID" />
+          <ScalarProperty Name="is_supplier" ColumnName="is_supplier" />
+          <ScalarProperty Name="is_customer" ColumnName="is_customer" />
+          <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+          <ScalarProperty Name="user_desc_id" ColumnName="user_desc_id" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DC_invoice">
+      <EntityTypeMapping TypeName="db_vendorModel.DC_invoice">
+        <MappingFragment StoreEntitySet="DC_invoice">
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+          <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+          <ScalarProperty Name="PO_Code" ColumnName="PO_Code" />
+          <ScalarProperty Name="DC_invoice_ID" ColumnName="DC_invoice_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DC_items">
+      <EntityTypeMapping TypeName="db_vendorModel.DC_items">
+        <MappingFragment StoreEntitySet="DC_items">
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="item_Code" ColumnName="item_Code" />
+          <ScalarProperty Name="DC_invoice_ID" ColumnName="DC_invoice_ID" />
+          <ScalarProperty Name="DC_item_ID" ColumnName="DC_item_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails">
+      <EntityTypeMapping TypeName="db_vendorModel.Email">
+        <MappingFragment StoreEntitySet="Email">
+          <ScalarProperty Name="is_mail_safe" ColumnName="is_mail_safe" />
+          <ScalarProperty Name="is_received_from_customer" ColumnName="is_received_from_customer" />
+          <ScalarProperty Name="is_received_from_vendor" ColumnName="is_received_from_vendor" />
+          <ScalarProperty Name="email_bcc" ColumnName="email_bcc" />
+          <ScalarProperty Name="email_cc" ColumnName="email_cc" />
+          <ScalarProperty Name="email_body" ColumnName="email_body" />
+          <ScalarProperty Name="email_to" ColumnName="email_to" />
+          <ScalarProperty Name="email_from" ColumnName="email_from" />
+          <ScalarProperty Name="email_subject" ColumnName="email_subject" />
+          <ScalarProperty Name="email_user_ID" ColumnName="email_user_ID" />
+          <ScalarProperty Name="email_id" ColumnName="email_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="general_sales_Invoice">
+      <EntityTypeMapping TypeName="db_vendorModel.general_sales_Invoice">
+        <MappingFragment StoreEntitySet="general_sales_Invoice">
+          <ScalarProperty Name="total" ColumnName="total" />
+          <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+          <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+          <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+          <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+          <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="general_sales_items">
+      <EntityTypeMapping TypeName="db_vendorModel.general_sales_items">
+        <MappingFragment StoreEntitySet="general_sales_items">
+          <ScalarProperty Name="values_of_good" ColumnName="values_of_good" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+          <ScalarProperty Name="gS_item_ID" ColumnName="gS_item_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="items">
+      <EntityTypeMapping TypeName="db_vendorModel.item">
+        <MappingFragment StoreEntitySet="item">
+          <ScalarProperty Name="unit_price" ColumnName="unit_price" />
+          <ScalarProperty Name="size" ColumnName="size" />
+          <ScalarProperty Name="measured_in" ColumnName="measured_in" />
+          <ScalarProperty Name="item_desc" ColumnName="item_desc" />
+          <ScalarProperty Name="item_brand_code" ColumnName="item_brand_code" />
+          <ScalarProperty Name="item_category_code" ColumnName="item_category_code" />
+          <ScalarProperty Name="item_name" ColumnName="item_name" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="item_brand">
+      <EntityTypeMapping TypeName="db_vendorModel.item_brand">
+        <MappingFragment StoreEntitySet="item_brand">
+          <ScalarProperty Name="item_brand_name" ColumnName="item_brand_name" />
+          <ScalarProperty Name="item_brand_code" ColumnName="item_brand_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="item_category">
+      <EntityTypeMapping TypeName="db_vendorModel.item_category">
+        <MappingFragment StoreEntitySet="item_category">
+          <ScalarProperty Name="item_category_name" ColumnName="item_category_name" />
+          <ScalarProperty Name="item_category_code" ColumnName="item_category_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="POes">
+      <EntityTypeMapping TypeName="db_vendorModel.PO">
+        <MappingFragment StoreEntitySet="PO">
+          <ScalarProperty Name="isfrieghtonBoard" ColumnName="isfrieghtonBoard" />
+          <ScalarProperty Name="shipping_datetime" ColumnName="shipping_datetime" />
+          <ScalarProperty Name="shipping_address" ColumnName="shipping_address" />
+          <ScalarProperty Name="PO_desc" ColumnName="PO_desc" />
+          <ScalarProperty Name="order_ID" ColumnName="order_ID" />
+          <ScalarProperty Name="PO_date" ColumnName="PO_date" />
+          <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PO_items">
+      <EntityTypeMapping TypeName="db_vendorModel.PO_items">
+        <MappingFragment StoreEntitySet="PO_items">
+          <ScalarProperty Name="cost_of_frieght" ColumnName="cost_of_frieght" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+          <ScalarProperty Name="PO_item_code" ColumnName="PO_item_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quotations">
+      <EntityTypeMapping TypeName="db_vendorModel.quotation">
+        <MappingFragment StoreEntitySet="quotation">
+          <ScalarProperty Name="total_price" ColumnName="total_price" />
+          <ScalarProperty Name="order_code" ColumnName="order_code" />
+          <ScalarProperty Name="written_on" ColumnName="written_on" />
+          <ScalarProperty Name="submission_date" ColumnName="submission_date" />
+          <ScalarProperty Name="customer_user_id" ColumnName="customer_user_id" />
+          <ScalarProperty Name="vendor_user_id" ColumnName="vendor_user_id" />
+          <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quotation_items">
+      <EntityTypeMapping TypeName="db_vendorModel.quotation_items">
+        <MappingFragment StoreEntitySet="quotation_items">
+          <ScalarProperty Name="value_of_good" ColumnName="value_of_good" />
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+          <ScalarProperty Name="quotation_items_code" ColumnName="quotation_items_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="requisation_items">
+      <EntityTypeMapping TypeName="db_vendorModel.requisation_items">
+        <MappingFragment StoreEntitySet="requisation_items">
+          <ScalarProperty Name="price_suggester" ColumnName="price_suggester" />
+          <ScalarProperty Name="brand" ColumnName="brand" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="requisation_desc" ColumnName="requisation_desc" />
+          <ScalarProperty Name="requisation_item_code" ColumnName="requisation_item_code" />
+          <ScalarProperty Name="requisation_no" ColumnName="requisation_no" />
+          <ScalarProperty Name="requisation_item_id" ColumnName="requisation_item_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_invoice">
+      <EntityTypeMapping TypeName="db_vendorModel.ST_invoice">
+        <MappingFragment StoreEntitySet="ST_invoice">
+          <ScalarProperty Name="total_value_of_goods" ColumnName="total_value_of_goods" />
+          <ScalarProperty Name="total_sales_tax" ColumnName="total_sales_tax" />
+          <ScalarProperty Name="total_special_excise_duty" ColumnName="total_special_excise_duty" />
+          <ScalarProperty Name="invoice_date" ColumnName="invoice_date" />
+          <ScalarProperty Name="quotation_code" ColumnName="quotation_code" />
+          <ScalarProperty Name="PO_code" ColumnName="PO_code" />
+          <ScalarProperty Name="supplier_userID" ColumnName="supplier_userID" />
+          <ScalarProperty Name="ST_Invoice_ID" ColumnName="ST_Invoice_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ST_items">
+      <EntityTypeMapping TypeName="db_vendorModel.ST_items">
+        <MappingFragment StoreEntitySet="ST_items">
+          <ScalarProperty Name="values_of_good" ColumnName="values_of_good" />
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="sales_tax" ColumnName="sales_tax" />
+          <ScalarProperty Name="quantity" ColumnName="quantity" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="ST_Invoice_ID" ColumnName="ST_Invoice_ID" />
+          <ScalarProperty Name="ST_item_ID" ColumnName="ST_item_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="supplier_items">
+      <EntityTypeMapping TypeName="db_vendorModel.supplier_items">
+        <MappingFragment StoreEntitySet="supplier_items">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="item_code" ColumnName="item_code" />
+          <ScalarProperty Name="supplier_item_id" ColumnName="supplier_item_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="system_order">
+      <EntityTypeMapping TypeName="db_vendorModel.system_order">
+        <MappingFragment StoreEntitySet="system_order">
+          <ScalarProperty Name="mailed_deliverychallan_invoice_to_customer" ColumnName="mailed_deliverychallan_invoice_to_customer" />
+          <ScalarProperty Name="mailed_salestaxinvoice_to_customer" ColumnName="mailed_salestaxinvoice_to_customer" />
+          <ScalarProperty Name="mailed_quotation_to_customer" ColumnName="mailed_quotation_to_customer" />
+          <ScalarProperty Name="received_po_from_customer" ColumnName="received_po_from_customer" />
+          <ScalarProperty Name="received_quotation_from_customer" ColumnName="received_quotation_from_customer" />
+          <ScalarProperty Name="is_submit_delieverychallaninvoice_delivered_by_supplier" ColumnName="is_submit_delieverychallaninvoice_delivered_by_supplier" />
+          <ScalarProperty Name="is_submit_salestaxinvoice_delivered_by_supplier" ColumnName="is_submit_salestaxinvoice_delivered_by_supplier" />
+          <ScalarProperty Name="is_submit_invoice_delivered_by_supplier" ColumnName="is_submit_invoice_delivered_by_supplier" />
+          <ScalarProperty Name="is_submit_po_delivered_to_supplier" ColumnName="is_submit_po_delivered_to_supplier" />
+          <ScalarProperty Name="iscompleted" ColumnName="iscompleted" />
+          <ScalarProperty Name="end_order_date" ColumnName="end_order_date" />
+          <ScalarProperty Name="start_order_date" ColumnName="start_order_date" />
+          <ScalarProperty Name="completion_percentage" ColumnName="completion_percentage" />
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="supplier_user_ID" ColumnName="supplier_user_ID" />
+          <ScalarProperty Name="customer_user_ID" ColumnName="customer_user_ID" />
+          <ScalarProperty Name="order_code" ColumnName="order_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_desc">
+      <EntityTypeMapping TypeName="db_vendorModel.user_desc">
+        <MappingFragment StoreEntitySet="user_desc">
+          <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+          <ScalarProperty Name="business_phone" ColumnName="business_phone" />
+          <ScalarProperty Name="personal_phone" ColumnName="personal_phone" />
+          <ScalarProperty Name="fax_number" ColumnName="fax_number" />
+          <ScalarProperty Name="company_website" ColumnName="company_website" />
+          <ScalarProperty Name="email_address" ColumnName="email_address" />
+          <ScalarProperty Name="contact_type" ColumnName="contact_type" />
+          <ScalarProperty Name="Employment_title" ColumnName="Employment_title" />
+          <ScalarProperty Name="country" ColumnName="country" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="office_address" ColumnName="office_address" />
+          <ScalarProperty Name="STN_reg_no" ColumnName="STN_reg_no" />
+          <ScalarProperty Name="company" ColumnName="company" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="user_descId" ColumnName="user_descId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

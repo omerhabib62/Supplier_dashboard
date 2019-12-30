@@ -1,0 +1,75 @@
+﻿@model supplier_dashboard_1._0.Models.Bidding_Window_ViewModel
+<style>
+    .validation {
+        color: red;
+    }
+
+    .width-500 {
+        width: 500px;
+    }
+    .margin-left-brand{
+        margin-left:32px;
+    }
+    .margin-left-size {
+        margin-left: 45px;
+    }
+    .margin-left-rate{
+        margin-left: 44px;
+    }
+    .margin-left-quan {
+        margin-left: 10px;
+    }
+</style>
+<h2 class="form-row row justify-content-center form-inline" style="margin-top:25px;margin-bottom:15px;">
+    Add New Item
+</h2>
+
+<div class="align-content-lg-center ">
+    @using (Html.BeginForm("register", "Home", FormMethod.Post, new { htmlAttributes = new { name = "login", @class = "form-border center  form-control container", @id = "iForm" } }))
+    {
+        @Html.ValidationSummary(true, "", new { @class = "validation" })
+        <div class="form-row row justify-content-center">
+            @Html.LabelFor(Model => Model.item_desc, new { @class = "form-check-label" }): &nbsp;&nbsp;
+
+            @Html.EditorFor(Model => Model.item_desc, new { htmlAttributes = new { placeholder = " Specific Details of Item. e.g: XYZ with certain specification ", @class = "width-500 " } })
+            @Html.ValidationMessageFor(Model => Model.item_desc, "", new { @class = "validation" })
+        </div>
+        <br />
+        <div class="form-row row justify-content-center margin-left-brand">
+            @Html.LabelFor(Model => Model.item_brand_name, new { @class = "form-check-label" }): &nbsp;&nbsp;
+
+            @Html.EditorFor(Model => Model.item_brand_name, new { htmlAttributes = new { placeholder = " Provide brand(if any). e.g: Pak Steel etc ", @class = "width-500 " } })
+            @Html.ValidationMessageFor(Model => Model.item_brand_name, "", new { @class = "validation" })
+        </div>
+        <br />
+        <div class="form-row row justify-content-center margin-left-size">
+            @Html.LabelFor(Model => Model.size, new { @class = "form-check-label" }): &nbsp;&nbsp;
+
+            @Html.EditorFor(Model => Model.size, new { htmlAttributes = new { placeholder = " Measurement size ", @class = "width-500 " } })
+            @Html.ValidationMessageFor(Model => Model.size, "", new { @class = "validation" })
+        </div>
+        <br />
+        <div class="form-row row justify-content-center margin-left-rate">
+            @Html.LabelFor(Model => Model.unit_price, new { @class = "form-check-label" }): &nbsp;&nbsp;
+
+            @Html.EditorFor(Model => Model.unit_price, new { htmlAttributes = new { placeholder = " Provide prices in decimal ", @class = "width-500 " } })
+            @Html.ValidationMessageFor(Model => Model.unit_price, "", new { @class = "validation" })
+        </div>
+        <br />
+        <div class="form-row row justify-content-center     margin-left-quan">
+            @Html.LabelFor(Model => Model.quantity, new { @class = "form-check-label" }): &nbsp;&nbsp;
+
+            @Html.EditorFor(Model => Model.quantity, new { htmlAttributes = new { placeholder = " In numeric without decimals ", @class = "width-500 " } })
+            @Html.ValidationMessageFor(Model => Model.quantity, "", new { @class = "validation" })
+        </div>
+        <br />
+        <div class="form-row row justify-content-center text-center">
+            <button type="submit" style="padding-left:45%; padding-right:45%;" class="btn btn-dark" onclick="return confirm('Are you sure you want to submit ?')">Add to List</button>
+        </div>
+        <div class="form-row row justify-content-center text-center">
+            <button id="cancel" style="margin-top:40px; padding-left:47%; padding-right:47%; margin-top:30px; margin-bottom:30px;" class="btn btn-dark" onclick="myFunction()">
+                Cancel
+            </button>
+        </div>
+    }
+</div>

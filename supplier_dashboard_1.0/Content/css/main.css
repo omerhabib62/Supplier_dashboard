@@ -1,0 +1,241 @@
+/* 
+GENERAL
+------------------------------------------------ 
+*/
+body {
+  background-image:url(/Content/images/background.jpg);
+  background-size: cover;
+  font: 400 18px/1.5 'Quicksand', sans-serif;
+  color: #333;
+}
+
+.container {
+  margin: 60px auto;
+  max-width: 640px;
+  padding: 0 15px;
+
+}
+
+/* 
+INPUT BOX 
+------------------------------------------------
+*/
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #666;
+  padding: 15px 15px 15px 35px;
+  width: 100%;
+  height: 50px;
+  color: #333;
+  transition: border 0.3s linear, color 0.3s linear;
+  font: 400 18px/1.5 'Quicksand', sans-serif;
+}
+
+input[type="text"] + .fas,
+input[type="password"] + .fas,
+input[type="email"] + .fas {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  transition: color 0.3s linear;
+  color: #333;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  outline: none;
+  border-color: #1E8BC3;
+  color: #1E8BC3;
+}
+
+input[type="text"]:focus + .fas,
+input[type="password"]:focus + .fas,
+input[type="email"]:focus + .fas {
+  color: #1E8BC3; 
+}
+
+/* 
+BUTTON 
+------------------------------------------------
+*/
+.btn {
+  background: #827ffe;
+  border: none;
+  color: #fff;
+  padding: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 100%;
+  cursor: pointer;
+  font: 400 18px/1.5 'Quicksand', sans-serif;
+  transition: background 0.3s linear;
+}
+
+.btn:hover {
+  background: #827ffe;
+}
+
+.btn:focus,
+.forgotPwd:focus {
+  outline: 1px dotted #333;
+}
+
+/* 
+INPUT BOX PLACEHOLDER COLORS 
+------------------------------------------------
+*/
+::placeholder { 
+  color: #333;
+  opacity: 1; 
+}
+
+:-ms-input-placeholder { 
+  color: #333;
+}
+
+::-ms-input-placeholder {
+  color: #333;
+}
+
+/* 
+CUSTOM CHECKBOX 
+------------------------------------------------
+*/
+input[type="checkbox"]:checked,
+input[type="checkbox"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+
+input[type="checkbox"]:checked + label,
+input[type="checkbox"]:not(:checked) + label {
+  position: relative;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 0 0 0 30px;
+}
+
+input[type="checkbox"]:checked + label:before,
+input[type="checkbox"]:not(:checked) + label:before {
+  content: '';
+  background: #ddd;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+input[type="checkbox"]:checked + label:after,
+input[type="checkbox"]:not(:checked) + label:after {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free"; 
+  font-weight: 900;
+  color: #1E8BC3;
+  position: absolute;
+  top: -4px;
+  left: 2px;
+  opacity: 0;
+  transition: opacity 0.3s linear, transform 0.3s linear;
+  transform: scale(1.5);
+}
+
+input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+input[type="checkbox"]:checked:focus + label:before,
+input[type="checkbox"]:not(:checked):focus + label:before {
+  border: 1px dotted #333;
+}
+
+/* 
+LOGIN FORM 
+------------------------------------------------
+*/
+.formholder {
+    background-color: rgba(237, 237, 237, 1);
+    padding: 80px 40px;
+    text-align: center;
+    background-color: rgba(204, 204, 204, 1);
+    border: 1px black;
+    border-radius: 12px;
+}
+
+.formholder .titleHolder {
+  margin: 0 0 50px;
+}
+
+.formholder .titleHolder .far {
+  font-size: 70px;
+  margin: 0 0 20px;
+}
+
+    .formholder h1 {
+        font-size: 40px;
+        margin: 0 0 10px;
+        font-family: "Raleway",sans-serif;
+    }
+
+.formholder a {
+  color: #333;
+  transition: color 0.3s linear;
+}
+
+.formholder a:hover {
+  color: #2574A9;
+}
+
+.formholder .row {
+  position: relative;
+  margin: 0 0 20px;
+}
+
+.formholder form {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.formholder form a {
+  font-size: 14px;
+}
+.dropbtn {
+  background-color: #827ffe;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}

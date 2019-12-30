@@ -1,0 +1,60 @@
+﻿@model IEnumerable<supplier_dashboard_1._0.Models.customers_requisation>
+@using supplier_dashboard_1._0.Models;
+
+
+    @{
+        ViewBag.Title = "Bidding Window Catalogue- Vendor Assistance";
+        Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
+    }
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <div style="margin-top:100px;">
+        <h1 class="text-capitalize text-black-50 text-center" style="margin-bottom:30px"> Welcome to Bidding Window </h1>
+        <h5 class="text-center">Suppliers should select from the following orders to place their respective offers:</h5>
+        <br />
+
+        <table class="table table-bordered ">
+            <tr  style="background-color: black; color:beige">
+                <th>
+                    @Html.DisplayNameFor(model => model.requisation_no)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.requisation_description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date_of_requistion)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.quotation_deadline)
+                </th>
+                <th style="border-right-color:black;"></th>
+                
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="">
+                    <td>
+                        @Html.DisplayFor(Model => item.requisation_no)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => item.requisation_description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(Model => item.Date_of_requistion)
+                    </td>
+                   
+                    <td>
+                        @Html.DisplayFor(Model => item.quotation_deadline)
+                    </td>
+                    <td>
+                        <p>@Html.ActionLink("Place Offer", "Requisation", new { requisation_no = item.requisation_no })</p>
+                        
+                    </td>
+                   
+                </tr>
+            }
+
+        </table>
+    </div>

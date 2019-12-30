@@ -1,0 +1,45 @@
+﻿
+@using supplier_dashboard_1._0.Models;
+@{
+
+    Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
+    ViewBag.Title = "Welcome To Supplier Dashboard - Vendor Assistance";
+    if (Session["UI"] == null)
+    {
+        Response.Redirect("~/Home/Index");
+    }
+}
+@{ var userID = Convert.ToInt32(Session["userdesc"]);
+    string result;
+    string result2;
+    using (db_vendor entity = new db_vendor())
+    {
+        result = (from o in entity.user_desc
+                  where o.user_descId == userID
+                  select o.fullname).FirstOrDefault();
+
+        result2 = (from o in entity.user_desc
+                   where o.user_descId == userID
+                   select o.company).FirstOrDefault();
+    }
+    Session["fullname"] = result;
+
+    Session["company"] = result2;
+
+}
+<style>
+    body {
+        font-size: 13px;
+    }
+</style>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+<div>
+    <br />
+    <h1 style="font-size:16px;">Dashboard</h1>
+    <h3 style="font-size:13px;">
+        Mr / Mrs : @result
+    </h3>
+
+</div>
+

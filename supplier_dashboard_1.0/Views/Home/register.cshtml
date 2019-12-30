@@ -1,0 +1,245 @@
+﻿@using supplier_dashboard_1._0.Models
+@model supplier_dashboard_1._0.Models.Registration_View_Model
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<!--14 from user_desc, 3-->
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registeration Form | Step 1: Supplier's Registration Details.</title>
+    <meta name="viewport" content="width=device-width" />
+    <title>Registration of Supplier</title>
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400" rel="stylesheet">
+    <link  rel="stylesheet" href="~/Content/css/sweetalert.min.css" />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <style>
+        .disabled {
+            border-color: red;
+            background: gray;
+        }
+
+        input[type=checkbox].disabled {
+            outline: 2px solid red;
+        }
+
+
+        .drop-down-style {
+            background: none;
+            border: none;
+            border-bottom: 1px solid #666;
+            padding: 15px 15px 15px 35px;
+            width: 100%;
+            height: 55px;
+            color: #333;
+            transition: border 0.3s linear, color 0.3s linear;
+            font: 400 18px/1.5 'Quicksand', sans-serif;
+        }
+
+        .validation {
+            color: red;
+        }
+    </style>
+    <link rel="stylesheet" href="~/Content/css/css/reset.css">
+    <link rel="stylesheet" href="~/Content/css/css/main.css">
+</head>
+<body style="background-color:rgba(217, 217, 217, 1)">
+    <div class="container">
+        <!-- form holder -->
+        <div class="formholder">
+            <!-- title holder -->
+            <div class="titleHolder">
+                <i class="far fa-user-circle"></i>
+                <h1>Sign Up for the supplier's support in Vendor Assistance</h1>
+                <hr />
+                <h2 class="second_head" style="font-size: 30px;margin-top:1px "> <br /> Supplier's Registration Details.<br /><br /></h2>
+                <hr />
+                <br />
+                <h3 class="second_head" style="font-size: 23px;margin-top:1px ">NOTE: </h3><br />
+                <h3 class="second_head" style="font-size: 20px;margin-top:1px ">Password :  Minimum length 8 characters | Maximum length 13 characters </h3><br />
+                <h3 class="second_head" style="font-size: 20px;margin-top:1px ">User ID :  Minimum length 5 characters | Maximum length 8 characters </h3>
+                <hr />
+            </div>
+
+            @using (Html.BeginForm("register", "Home", FormMethod.Post, new { htmlAttributes = new { name = "login", @class = "loginForm", @id = "logiForm" } }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "validation" })
+
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.firstname)
+                    <br />
+                    @Html.EditorFor(Model => Model.firstname, new { htmlAttributes = new { placeholder = " First Name " } })
+                    @Html.ValidationMessageFor(Model => Model.firstname, "", new { @class = "validation" })
+
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.lastname)
+                    <br />
+                    @Html.EditorFor(Model => Model.lastname, new { htmlAttributes = new { placeholder = " Last Name" } })
+                    @Html.ValidationMessageFor(Model => Model.lastname, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.user_loginID)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.user_loginID, new { htmlAttributes = new { placeholder = " User Name", @id = "user_loginID" } })
+                    @Html.ValidationMessageFor(Model => Model.user_loginID, "", new { @class = "validation" })
+                    <span id="spannees"></span>
+                </div>
+                <div class="row">
+                    <br />
+
+                    @Html.LabelFor(Model => Model.user_password)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.user_password, new { htmlAttributes = new { placeholder = " Password", type = "password" } })
+                    @Html.ValidationMessageFor(Model => Model.user_password, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.Employment_title)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.Employment_title, new { htmlAttributes = new { placeholder = " Title" } })
+                    @Html.ValidationMessageFor(Model => Model.Employment_title, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.company)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.company, new { htmlAttributes = new { placeholder = " Name" } })
+                    @Html.ValidationMessageFor(Model => Model.company, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.STN_reg_no)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.STN_reg_no, new { htmlAttributes = new { placeholder = " E.g: XXX-XXX -XXX - X" } })
+                    @Html.ValidationMessageFor(Model => Model.STN_reg_no, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    <br />
+                    @Html.LabelFor(Model => Model.office_address)
+                    <br />
+                    <br />
+                    @Html.TextAreaFor(Model => Model.office_address, new { @placeholder = " Office Address", @style = " width: 100%; height=500px; border-bottom: 1px solid #666; padding: 15px 15px 15px 35px;color:#333; transition: border 0.3s linear, color 0.3s linear;  font: 400 18px/1.5 'Quicksand', sans-serif;" })
+                    @Html.ValidationMessageFor(Model => Model.office_address, "", new { @class = "validation" })
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.email_address)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.email_address, new { htmlAttributes = new { placeholder = " Email" } })
+                    @Html.ValidationMessageFor(Model => Model.email_address, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    <br />
+                    @Html.LabelFor(Model => Model.company_website)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.company_website, new { htmlAttributes = new { placeholder = " Website", @Value = "https://www." } })
+                    @Html.ValidationMessageFor(Model => Model.company_website, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    <br />
+                    @Html.LabelFor(Model => Model.city)
+                    <br />
+                    @Html.EditorFor(Model => Model.city, new { htmlAttributes = new { placeholder = " City" } })
+                    @Html.ValidationMessageFor(Model => Model.city, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <br />
+                        @Html.LabelFor(Model => Model.country)
+                        <br />
+                        @Html.DropDownListFor(Model => Model.country, new SelectList(ViewBag.CountryList), "Country", new { @class = "drop-down-style" })
+                        @Html.ValidationMessageFor(Model => Model.country, "", new { @class = "validation" })
+
+                    </div>
+                </div>
+                <div class="row">
+
+                    <br />
+                    @Html.LabelFor(Model => Model.fax_number)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.fax_number, new { htmlAttributes = new { placeholder = " Enter Fax Number" } })
+                    @Html.ValidationMessageFor(Model => Model.fax_number, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+
+                    <br />
+                    @Html.LabelFor(Model => Model.personal_phone)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.personal_phone, new { htmlAttributes = new { placeholder = "Enter Phone Number" } })
+                    @Html.ValidationMessageFor(Model => Model.personal_phone, "", new { @class = "validation" })
+
+                </div>
+
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.business_phone)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.business_phone, new { htmlAttributes = new { placeholder = "Business Phone" } })
+                    @Html.ValidationMessageFor(Model => Model.business_phone, "", new { @class = "validation" })
+                </div>
+                <div class="row">
+                    <br />
+                    @Html.LabelFor(Model => Model.postal_code)
+                    <br />
+                    <br />
+                    @Html.EditorFor(Model => Model.postal_code, new { htmlAttributes = new { placeholder = " Postal Code" } })
+                    @Html.ValidationMessageFor(Model => Model.postal_code, "", new { @class = "validation" })
+                </div>
+                <div class='info'>
+                    <br /><br />
+                </div>
+                <div class="row">
+                    <button type="submit" onclick="return confirm('Are you sure you want to submit ?')" class="btn">Proceed</button>
+                </div>
+                <div class="row">
+                    <a href="@Url.Action("Index", "Home")">Already have an account? Sign in</a>
+                </div>
+            }
+        </div>
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("submit", "#logiForm", function () {
+            return confirm("Do you want to submit?");
+        });
+    </script>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

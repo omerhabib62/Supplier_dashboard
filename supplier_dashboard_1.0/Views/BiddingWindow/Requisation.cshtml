@@ -1,0 +1,345 @@
+﻿@model IEnumerable<supplier_dashboard_1._0.Models.Bidding_Window_ViewModel>
+
+
+@{
+
+    ViewBag.Title = "Bidding Window - Vendor Assistance";
+    Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
+}
+<style>
+    .validation {
+        color: red;
+    }
+
+    .width100 {
+        width: 100px;
+    }
+
+    .width50 {
+        width: 40px;
+    }
+
+    .width400 {
+        width: 775px;
+    }
+
+    .margin-top {
+        margin-top: 100px;
+    }
+
+    .margin_top {
+        margin-top: 5px;
+    }
+
+    .margin_top-1 {
+        margin-top: 8px;
+    }
+
+    .margin-bottom-2 {
+        margin-bottom: 6px;
+    }
+</style>
+
+<div class="margin-top">
+    <h2 class=" text-center margin-top">
+        Bidding For Order No: "@ViewBag.requisation_no"
+    </h2>
+    <br />
+    <h4 class="text-center">For quotation, "@Session["fullname"]" , find items to submit for quotating of price.</h4>
+</div>
+
+<div class="container-fluid align-self-center">
+    <div class="form-row form-inline justify-content-center border w3-border-dark-grey align-self-center" style="margin-top:45px;margin-bottom:30px;padding-top:20px;padding-bottom:20px;margin-left:5px;border-width:inherit;width:100%;">
+        <h5 class="form-inline ">Enter Description for item : &nbsp;</h5>
+        <form style="margin-bottom:5px">
+            <input class="form-control mr-sm-2" aria-label="Search" type="text" placeholder="Enter Text Here">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Find</button>
+        </form>
+        <br />
+    </div>
+</div>
+
+
+
+<div class="border w3-border-black" style="padding-left:10px;padding-right:10px;margin-bottom:100px;">
+    
+        <br />
+        <h3 class="text-center ">Proposed Items</h3>
+        <br />
+        <table class="table table-responsive table-dark table-bordered table-hover table-sm  text-center" id="tbl-items">
+            <thead class="thead-light ">
+                <tr style="margin-bottom:10px;">
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.item_desc)
+                    </th>
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.item_brand_name)
+                    </th>
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.measured_in)
+                    </th>
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.size)
+                    </th>
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.price_suggester)
+                    </th>
+                    <th class="col">
+                        @Html.DisplayNameFor(model => model.quantity)
+                    </th>
+                    <th class="col">
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody class="text-body">
+                @foreach (var item in Model)
+                {
+                    <tr style="margin-bottom:10px; margin-top:20px;">
+                        <th>
+                            @Html.EditorFor(Model => item.item_desc, new { htmlAttributes = new { @class = "width400 margin_top-1" } })
+                        </th>
+                        <th>
+                            @Html.EditorFor(model => item.item_brand_name, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
+                        </th>
+                        <th>
+                            @Html.EditorFor(model => item.measured_in, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
+                        </th>
+                        <th>
+                            @Html.EditorFor(model => item.size, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
+                        </th>
+                        <th>
+                            @Html.EditorFor(model => item.price_suggester, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
+                        </th>
+                        <th>
+                            @Html.EditorFor(model => item.quantity, new { htmlAttributes = new { @class = "width50 margin_top-1" } })
+                            @Html.ValidationMessageFor(Model => item.quantity, "", new { @class = "validation" })
+                        </th>
+                        
+                        <th>
+                            <input type="button" class="btn btn-danger margin_top" value="Remove" onclick="Remove(this)" />
+                        </th>
+                    </tr>
+                }
+            </tbody>
+
+            <tfoot style="background-color:aliceblue;  margin-top:8px;">
+                <tr style="border-color:black; padding-bottom:4px">
+                    <th>
+                        @Html.Editor("item_desc", new { htmlAttributes = new { @class = "width400 margin_top-1 margin-bottom-2", @id = "item_desc", @value=""} })
+                    </th>
+                    <th>
+                        @Html.Editor("item_brand_name", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "item_brand_name", @value = ""} })
+                    </th>
+                    <th>
+                        @Html.Editor("measured_in", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "measured_in", @value = "" } })
+                    </th>
+                    <th>
+                        @Html.Editor("size", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "size", @value = "" } })
+                    </th>
+                    <th>
+                        @Html.Editor("price_suggester", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "price_suggester", @value = "" } })
+                    </th>
+                    <th>
+                        @Html.Editor("quantity", new { htmlAttributes = new { @class = "width50 margin_top-1 margin-bottom-2", @id = "quantity", @value = "" } })
+                    </th>
+                    <th>
+                        <input type="button" style="width:82px" id="btnAdd" class="btn btn-success margin_top" value="Add" />
+                    </th>
+                </tr>
+            </tfoot>
+
+
+
+
+        </table>
+        <p class="text-center" style="margin-top:30px;">
+            <button type="button" id="submit-all" class="btn btn-dark " style="margin-bottom:20px;">
+                Submit All
+            </button>
+            
+        </p>
+    
+</div>
+<script src="~/Scripts/json2.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="~/Scripts/jquery.js"></script>
+
+<script type="text/javascript">
+
+    
+    $("body").on("click", "#btnAdd", function () {
+
+        //Reference the TextBoxes.
+        var txtitem_desc = $("#item_desc");
+        var txtitem_brand_name = $("#item_brand_name");
+        var txtmeasuredIn = $("#measured_in");
+        var txtsize = $("#size");
+        var txtprice_suggester = $("#price_suggester");
+        var txtquantity = $("#quantity");
+
+        //Get the reference of the Table's TBODY element.
+        var tBody = $("#tbl-items > TBODY")[0];
+        //Add Row.
+        var row = tBody.insertRow(-1);
+        //Add Item_desc cell.
+        var cell = $(row.insertCell(-1));
+
+        var a = document.createElement("INPUT");
+        cell.append(a);
+        a.value = txtitem_desc.val();
+        a.id = "description";
+        a.style.width = "100%";
+
+        //Add Brand cell.
+        cell = $(row.insertCell(-1));
+        var x = document.createElement("INPUT");
+        cell.append(x);
+       x.value = txtitem_brand_name.val();
+        x.className = "width100 text-box single-line";
+        x.id = "brand";
+
+        //Add Measured In cell.
+        cell = $(row.insertCell(-1));
+        var b = document.createElement("INPUT");
+        cell.append(b);
+        b.value = txtmeasuredIn.val();
+        b.id = "measure";
+        b.style.width = "100%";
+
+        //Add size cell.
+        cell = $(row.insertCell(-1));
+        var c = document.createElement("INPUT");
+        cell.append(c);
+        c.value = txtsize.val();
+        c.id = "Size";
+        c.style.width = "100%";
+
+        //Add price cell.
+        cell = $(row.insertCell(-1));
+        var d = document.createElement("INPUT");
+        cell.append(d);
+        d.value = txtprice_suggester.val();
+        d.style.width = "100%";
+        d.id = "Price";
+        //Add quantity cell.
+        cell = $(row.insertCell(-1));
+        var e = document.createElement("INPUT");
+        cell.append(e);
+        e.value = txtquantity.val();
+        e.id = "Quantity";
+        e.style.width = "59%";
+
+        //Add Button cell.
+        cell = $(row.insertCell(-1));
+        var btnRemove = $("<input class='btn btn-danger margin_top'/>");
+        btnRemove.attr("type", "button");
+        btnRemove.attr("onclick", "Remove(this);");
+        btnRemove.val("Remove");
+        cell.append(btnRemove);
+
+        //Clear the TextBoxes.
+        txtitem_desc.val("");
+        txtitem_brand_name.val("");
+        txtmeasuredIn.val("");
+        txtsize.val("");
+        txtprice_suggester.val("");
+        txtquantity.val("");
+
+    });
+</script>
+
+<script type="text/javascript">
+    function myFunction(){
+         //(@Url.Action("Add_new_item", "BiddingWindow"));
+
+        var ajx = new XMLHttpRequest();
+
+        ajx.onreadystatechange = function ()
+        {   //Get Response to Server
+            document.getElementByIxd('partialview_item').innerHTML = ajx.responseText;
+        }
+        ajx.open("GET", "http://localhost:56740/BiddingWindow/Add_new_item", true);
+        ajx.send();
+        document.getElementById("add_item").textContent = "Cancel";
+        document.getElementById("heading_item").remove();
+        document.getElementById("add_item").remove();
+        }
+        function Remove(button) {
+            //Determine the reference of the Row using the Button.
+            var row = $(button).closest("TR");
+            var name = $("TD", row).eq(0).html();
+            if (confirm("Do you want to remove this item ? ")) {
+                //Get the reference of the Table.
+                var table = $("#tbl-items")[0];
+                //Delete the Table row using it's Index.
+                table.deleteRow(row[0].rowIndex);
+            }
+        };
+</script>
+
+<script type="text/javascript">
+    function checkundefined(a) {
+        if (a == undefined) {
+            return;
+        }
+        return a;
+    }
+
+    function checkbyid(inputid) {
+        var el = document.querySelectorAll("[id=" + inputid + "]");
+        var newArr = new Array(el.length);
+        //var returnvar;
+        for (i = 0; i < el.length; i++) {
+            
+            newArr[i] = el[i].value;
+        }
+        return newArr;
+    }
+    $("body").on("click", "#submit-all", function () {
+        
+        //Loop through the Table rows and build a JSON array.
+        var items = new Array();
+        
+        $("#tbl-items TBODY TR").each(function () {
+            var row = $(this);
+            var item = {};
+            item.item_desc = checkundefined(row.find("TH").find("INPUT").eq(0).val());
+            item.item_brand_name = checkundefined(row.find("TH").find("INPUT").eq(1).val());
+            item.measured_in = checkundefined(row.find("TH").find("INPUT").eq(2).val());
+            item.size = checkundefined(row.find("TH").find("INPUT").eq(3).val());
+            item.price_suggester = checkundefined(row.find("TH").find("INPUT").eq(4).val());
+            item.quantity = checkundefined(row.find("TH").find("INPUT").eq(5).val());
+            items.push(item);
+        });
+        alert(items.item.item_desc);
+        $("#tbl-items TFOOT TR TH").each(function () {
+            //var row = $(this);
+            //var item = {};
+            item.item_desc = checkbyid("description");
+            
+            item.item_brand_name = checkbyid("brand");
+            item.measured_in = checkbyid("measure");
+            item.size = checkbyid("Size");
+            item.price_suggester = checkbyid("Price");
+            item.quantity = checkbyid("Quantity");
+            items.push(item);
+        });
+
+        ////Send the JSON array to Controller using AJAX.  // / BiddingWindow / quotation_submit
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/BiddingWindow/quotation_submit",
+        //    data: JSON.stringify(items),
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (r) {
+        //        alert(r + " record(s) inserted.");
+        //        location.reload();
+        //    }
+        //});
+        });
+    </script>
+

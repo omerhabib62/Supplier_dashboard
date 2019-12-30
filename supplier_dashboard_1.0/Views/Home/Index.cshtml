@@ -1,0 +1,71 @@
+﻿@model supplier_dashboard_1._0.Models.db_User
+@{
+    Layout = null;
+    if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@ViewBag.Message');
+            };
+        </script>
+    }
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In - Vendor's Assistance</title>
+    <link rel="stylesheet" href="/Content/css/main.css">
+    <link rel="stylesheet" href="/Content/css/reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <!-- form holder -->
+        <div class="formholder">
+            <!-- title holder -->
+            <div class="titleHolder">
+
+                <i class="far fa-user-circle"></i>
+                <br />
+                <h1>Supplier's Portal - Vendor Assistance</h1>
+                <br />
+                <p>Enter your Vendor ID and password.</p>
+            </div>
+            <!-- login form -->
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { htmlAttributes = new { name = "login", @class = "loginForm" } }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    @Html.EditorFor(model => model.user_loginID, new { htmlAttributes = new { placeholder = "Enter Supplier ID", required = "required", name = "Username_vendor" } })
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="row">
+                    @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { placeholder = "Enter Password", required = "required", name = "password_vendor", type = "password" } })
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="row">                 
+                    @Html.DisplayFor(model => model.LoginErrorMessage)
+                    <br />
+                </div>
+                <div class="row">
+                    <input type="submit" value="Login" class="btn">
+                </div>
+                <div class="row">
+                    @Html.ActionLink("Forgot Password?", "forgotpassword", "Home")
+                    <br />
+                    <p><br /></p>
+                    @Html.ActionLink("Click to register", "register", "Home")
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>

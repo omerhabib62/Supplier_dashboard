@@ -1,0 +1,46 @@
+﻿@model IEnumerable<supplier_dashboard_1._0.Models.Bidding_Window_ViewModel>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<div>
+    <h2>
+        Modify your Selected Item
+    </h2>
+    <hr />
+    <form id="myform">
+        @foreach (var item in Model)
+        {@Html.HiddenFor(Model => item.item_code)
+        <br />
+        <p> Item Name : @Html.TextBoxFor(Model => item.item_name)</p>
+        <br />
+        <p> Category : @Html.TextBoxFor(Model => item.item_category_name)</p>
+        <br />
+        <p>Description: @Html.TextBoxFor(Model => item.item_desc)</p>
+        <br />
+        <hr />
+        <a href="#" id="btnSubmit" class="btn btn-success btn-block">@if (item.item_code > 0)
+        {<span>Change Item</span> }
+        else
+        {<span>Add Item</span> }</a>
+        }  </form>
+    <div id="loaderDiv"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $("#btnSubmit").click(function () {
+        $("#loaderDiv").show();
+        var myformdata = $("#myform").serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "/BiddingWindow/Index",
+            data: myformdata,
+            success: function () {
+                $("#loaderDiv").hide();
+                $("#myModal").modal("hide");
+            }
+        })
+        })
+    })
+</script>
