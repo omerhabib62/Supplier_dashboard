@@ -1,0 +1,202 @@
+﻿@model supplier_dashboard_1._0.Models.system_order
+@using supplier_dashboard_1._0.Models;
+@{
+    ViewBag.Title = "Order Panel - ";
+    Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
+}
+@{
+
+    var userID = Convert.ToInt32(Session["user"]);
+    string result;
+    string result2;
+    using (db_vendor entity = new db_vendor())
+    {
+        result = (from o in entity.user_desc
+                  where o.user_descId == userID
+                  select o.fullname).FirstOrDefault();
+
+        result2 = (from o in entity.user_desc
+                   where o.user_descId == userID
+                   select o.company).FirstOrDefault();
+    }
+    Session["fullname"] = result;
+
+    Session["company"] = result2;
+}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap Js CDN -->
+
+<style type="text/css">
+    /* Include the padding and border in an element's total width and height */
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Remove margins and padding from the list */
+    .todo {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+    }
+
+        /* Style the list items */
+        .todo li {
+            cursor: pointer;
+            position: relative;
+            padding: 12px 8px 12px 40px;
+            background: #eee;
+            font-size: 18px;
+            transition: 0.2s;
+            /* make the list items unselectable */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            /* Set all odd list items to a different color (zebra-stripes) */
+            .todo li:nth-child(odd) {
+                background: #f9f9f9;
+            }
+
+            /* Darker background-color on hover */
+            .todo li:hover {
+                background: #ddd;
+            }
+
+            /* When clicked on, add a background color and strike out text */
+            .todo li.checked {
+                background: #888;
+                color: #fff;
+                text-decoration: line-through;
+            }
+
+                /* Add a "checked" mark when clicked on */
+                .todo li.checked::before {
+                    content: '';
+                    position: absolute;
+                    border-color: #fff;
+                    border-style: solid;
+                    border-width: 0 2px 2px 0;
+                    top: 10px;
+                    left: 16px;
+                    transform: rotate(45deg);
+                    height: 15px;
+                    width: 7px;
+                }
+
+    /* Style the close button */
+    .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 12px 16px 12px 16px;
+    }
+
+        .close:hover {
+            background-color: #f44336;
+            color: white;
+        }
+
+    /* Style the header */
+    .header {
+        background-color: #715e5e;
+        padding: 30px 40px;
+        color: white;
+        text-align: center;
+    }
+
+        /* Clear floats after the header */
+        .header:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+    /* Style the input */
+    input {
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        width: 75%;
+        padding: 10px;
+        float: left;
+        font-size: 16px;
+    }
+
+    /* Style the "Add" button */
+    .addBtn {
+        padding: 10px;
+        width: 25%;
+        background: #d9d9d9;
+        color: #555;
+        float: left;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+        border-radius: 0;
+    }
+
+        .addBtn:hover {
+            background-color: #bbb;
+        }
+</style>
+
+<div style="margin-top:120px;">
+    <h2 class="text-center text-capitalize font-italic">Keep Check On Orders ! </h2>
+    <br />
+    <h4>Summary</h4>
+    <hr />
+    <p>For all the efforts, the supplier "  @Session["fullname"].ToString() ", the details for all completed, incomplete, pending and inprogress orders are provided as:  </p>
+    <div id="container2" class="text-center" style="border:#715e5e42 solid;"></div>
+</div>
+<script>
+    Highcharts.chart('container2', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Status of orders '
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'Incomplete',
+                y: 25,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'Complete',
+                y: 11.84
+            }, {
+                name: 'In Progress',
+                y: 10.85
+            }]
+        }]
+    });
+</script>

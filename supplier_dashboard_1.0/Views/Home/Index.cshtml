@@ -10,62 +10,59 @@
         </script>
     }
 }
-
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign In - Vendor's Assistance</title>
-    <link rel="stylesheet" href="/Content/css/main.css">
-    <link rel="stylesheet" href="/Content/css/reset.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
-
-</head>
-<body>
-    <div class="container">
-        <!-- form holder -->
-        <div class="formholder">
-            <!-- title holder -->
-            <div class="titleHolder">
-
-                <i class="far fa-user-circle"></i>
-                <br />
-                <h1>Supplier's Portal - Vendor Assistance</h1>
-                <br />
-                <p>Enter your Vendor ID and password.</p>
-            </div>
-            <!-- login form -->
-            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { htmlAttributes = new { name = "login", @class = "loginForm" } }))
+@Html.Raw(TempData["Message"])
+<title>Sign In - Supplier's Assistance Portal</title>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-grid.css" rel="stylesheet" />
+<link href="~/Content/font-awesome.css" rel="stylesheet" />
+<link href="~/Content/Login/Login.css" rel="stylesheet" />
+<div class="sidenav">
+    <div class="login-main-text">
+        <h2 style="margin-left:163px;"><i class="fa fa-user-circle"></i></h2>
+        <h2 style="font-family:'Agency FB'">  &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Supplier's Assistance<br>&nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Portal Login</h2>
+        <p><br /></p>
+        <p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Enter Vendor ID and Password </p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Sign Up As Our Supplier.</p>
+    </div>
+</div>
+<div class="main">
+    <div class="col-md-6 col-sm-12">
+        <div class="login-form">
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
                 @Html.AntiForgeryToken()
-                <div class="row">
-                    @Html.EditorFor(model => model.user_loginID, new { htmlAttributes = new { placeholder = "Enter Supplier ID", required = "required", name = "Username_vendor" } })
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="row">
-                    @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { placeholder = "Enter Password", required = "required", name = "password_vendor", type = "password" } })
-                    <i class="fas fa-key"></i>
-                </div>
-                <div class="row">                 
-                    @Html.DisplayFor(model => model.LoginErrorMessage)
+                <div class="form-group">
+                    <span class="alert-danger text-danger" style="margin-left:45px;"> @Html.DisplayFor(model => model.LoginErrorMessage, new { htmlAttributes = new { @class = "alert-danger" } })</span>
                     <br />
                 </div>
-                <div class="row">
-                    <input type="submit" value="Login" class="btn">
+                <div class="form-group">
+                    <i class=" fa fa-helicopter"></i> <label class="font-weight-bolder">User ID</label>
+                    @Html.EditorFor(model => model.user_loginID, new { htmlAttributes = new { @placeholder = "Enter Supplier ID", @required = "required", name = "Username_vendor", @class = "form-field" ,@Value= ViewBag.username } })
+                    @*<input type="text" class="form-control" placeholder="User Name">*@
                 </div>
-                <div class="row">
-                    @Html.ActionLink("Forgot Password?", "forgotpassword", "Home")
-                    <br />
-                    <p><br /></p>
-                    @Html.ActionLink("Click to register", "register", "Home")
+                <br />
+                <div class="form-group">
+                    <label class="font-weight-bolder">Password</label>
+                    @Html.EditorFor(model => model.user_password, new { htmlAttributes = new { @placeholder = "Enter Password", @required = "required", name = "password_vendor", type = "password", @class = "form-field", @Value = ViewBag.password } })
                 </div>
+                <br />
+                <div class="form-inline">
+                    @* @Html.DisplayFor(model => model.RememberMe)*@
+                    @Html.CheckBoxFor(m => m.RememberMe, new { @class = "CheckBoxFor", @style = "margin-right:5px;" })&nbsp; <label class="font-weight-bolder" style="font-size:15px;">Remember Me</label>
+                    &nbsp;
+                    @*<a href="@Url.Action("forgotpassword","Home")" class="nav-link" style="float:right;margin-left:60px;">Forgot Password?</a>*@
+                    @*@Html.ActionLink("Forgot Password?", "forgotpassword", "Home", new { @class = "nav-link", @style = "float:right;margin-left:60px;" })*@
+                </div>
+                <br />
+                <div class="form-inline ">
+                    <button type="submit" class="btn btn-dark " style="margin-right:5px;float:left;padding-left: 40px;padding-right: 50px;padding-top:10px;padding-bottom: 10px; ">Sign In</button>
+                    <input type="button" onclick="location.href='@Url.Action("register", "Home")'" class="btn btn-secondary" style="float:right;padding-left: 40px;padding-right: 40px; margin-left: 50px;padding-top:10px;padding-bottom: 10px;" value="Sign Up"/>
+                </div>
+
+
             }
+
         </div>
     </div>
-</body>
-</html>
+</div>

@@ -1,14 +1,23 @@
-﻿using System;
+﻿//Order Started
+//Completion Percentage table.(Tasks:1.DC submitted/not?(by supplier to customer). 2. Invoice submitted/not? (by supplier to customer)
+//3. PO submitted/not? (by supplier to customer). 4. Sales tax invoice submitted/not? (by supplier to customer). 5. Mailed to customer(DCinvoice) 6. Malied to supplier() 7. Best offer selected ? 10 
+
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using supplier_dashboard_1._0.ActionFilters;
 using supplier_dashboard_1._0.Models;
 
 namespace supplier_dashboard_1._0.Controllers
 
 {
+    [SessionTimeout]
     public class BiddingWindowController : Controller
     {
         
@@ -25,13 +34,21 @@ namespace supplier_dashboard_1._0.Controllers
             ViewBag.requisation_no = requisation_no;
             db_vendor db = new db_vendor();
             requisation_items requisation_code = new requisation_items();
+
+            customers_requisation model = db.customers_requisation.Where(x => x.requisation_no == requisation_no).SingleOrDefault();
+            int cid = Convert.ToInt32(model.customer_user_ID);
+            Session["customer"] = cid;
+
+            
+            customers_requisation quotations = db.customers_requisation.Where(x => x.requisation_no == requisation_no).SingleOrDefault();
+            DateTime quote_dead = Convert.ToDateTime(quotations.quotation_deadline); 
+            Session["quotation_deadline"] = quote_dead;
+
             IEnumerable<Bidding_Window_ViewModel> bidding_view = from requisation in db.requisation_items join requisations_items in db.items on requisation.requisation_item_code equals requisations_items.item_code where requisation.requisation_no == requisation_no select new Bidding_Window_ViewModel {
-                requisation_item_code = requisation.requisation_item_code,
-                item_name = requisations_items.item_name,
+                
                 item_brand_name = requisations_items.item_brand.item_brand_name,
                 measured_in = requisations_items.measured_in,
-                item_desc = requisations_items.item_desc,
-                item_category_name = requisations_items.item_category.item_category_name,
+                item_desc = requisations_items.item_desc,                
                 size = requisations_items.size,
                 price_suggester = requisation.price_suggester,
                 quantity = requisation.quantity
@@ -40,119 +57,93 @@ namespace supplier_dashboard_1._0.Controllers
             return View(bidding_view);
         }
         
-        public JsonResult quotation_submit(List<Bidding_Window_ViewModel> bidding)
+        [HttpPost]
+        public ActionResult quotation_submit(IEnumerable<Bidding_Window_ViewModel> ob)
         {
-            using (db_vendor entities = new db_vendor())
-            {
-                //Truncate Table to delete all old records.
-                entities.Database.ExecuteSqlCommand("TRUNCATE TABLE [Customers]");
+            db_vendor vendor = new db_vendor();            
+            quotation_items quote_items = new quotation_items();
+            item item_quote = new item();
+            quotation quote = new quotation();
+            List<int> br_code = new List<int>();
+            var desc_ID = Convert.ToInt32(Session["userdesc_ID"]);
+            var customer_ID = Convert.ToInt32(Session["customer"]);
+            db_User user_ = vendor.db_User.Where(x => x.user_desc_id == desc_ID).SingleOrDefault();
+            int User_ID = Convert.ToInt32(user_.userID);
+            Session["user_ID"] = User_ID;           
+            system_order order = vendor.system_order.Where(x=>x.customer_user_ID == customer_ID).SingleOrDefault();
+            int order_code_ = Convert.ToInt32(order.order_code);
+            Session["order_code"]= order_code_;
 
-                //Check for NULL.
-                if (bidding == null)
-                {
-                    bidding = new List<Bidding_Window_ViewModel>();
-                }
+           
+            quote.vendor_user_id = Convert.ToInt32(Session["user_ID"]);
+            quote.customer_user_id = Convert.ToInt32(Session["customer"]);
+            //var format = "ddd MMM dd yyyy HH:mm:ss 'GMT'zzz '(GMT Daylight Time)'";
+            var date = Session["quotation_deadline"].ToString();
+            //var submit_date = DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
+            quote.submission_date =DateTime.Parse(date); 
+            quote.written_on = DateTime.Now;
+            quote.order_code = Convert.ToInt32(Session["order_code"]);
+            quote.total_price = null;
+            vendor.quotations.Add(quote);
+            vendor.SaveChanges();
+            int quote_ID=quote.quotation_code;
+           
+       
+                
+                    List<item_brand> o = new List<item_brand>();
+                    List<decimal> ListPrice = new List<decimal>();
+                    List<item> ListItem = new List<item>();
+                    List<decimal> ListVOG = new List<decimal>();
 
-                //Loop and insert records.
-                foreach (Bidding_Window_ViewModel bid in bidding)
-                {
-                    //entities.bidding.Add(bid);
-                }
-                int insertedRecords = entities.SaveChanges();
-                return Json(insertedRecords);
-            }
-        }
-        //public JsonResult Add_item(Bidding_Window_ViewModel mv)
-        //{
-        //    Bidding_Window_ViewModel model_sent = new Bidding_Window_ViewModel();
 
-        //    model_sent.item_name = mv.item_name;
-        //    model_sent.item_desc = mv.item_desc;
-        //    model_sent.measured_in = mv.measured_in;
-        //    model_sent.size = mv.size;
-        //    model_sent.unit_price = mv.unit_price;
-        //    model_sent.item_category_name = mv.item_category_name;
-        //    model_sent.item_brand_name = mv.item_brand_name;
-        //    model_sent.quantity = mv.quantity;
-        //    return Json(mv);
+                    //Enter the parameter object into database for each item in requisation
+                    foreach (Bidding_Window_ViewModel brand in ob)
+                    {
+                    // New Item Brand in Database
+                        item_brand branded = new item_brand();
+                        branded.item_brand_name= brand.item_brand_name;
+                        vendor.item_brand.Add(branded);
+                        vendor.SaveChanges();
+                        o.Add(branded);
+                        br_code.Add(branded.item_brand_code);
 
-        //}
-        //[HttpGet]
-        //public ActionResult Add_new_item()
-        //{
-        //    return PartialView();
-        //}
-        //[HttpPost]
-        //public ActionResult Add_new_item(Bidding_Window_ViewModel vm)
-        //{
-        //    return PartialView();
-        //}
-        //[HttpPost]
-        //public ActionResult Requisation(Bidding_Window_ViewModel mv)
-        //{
-        //    try
-        //    {
-        //        db_vendor db = new db_vendor();
+                    //New Item in Database
+                        item item_qoue = new item();
+                        item_qoue.item_brand_code = branded.item_brand_code;
+                        item_qoue.item_desc = brand.item_desc.ToString();
+                        item_qoue.item_name = brand.item_desc.ToString();
+                        item_qoue.unit_price = Convert.ToDecimal(brand.price_suggester);
+                        ListPrice.Add(Convert.ToDecimal(brand.price_suggester));
+                        item_qoue.size = brand.size;
+                        item_qoue.measured_in = brand.measured_in;
+                        item_qoue.item_category_code = null;
+                        vendor.items.Add(item_qoue);
+                        ListItem.Add(item_qoue);
+                        vendor.SaveChanges();
+                    
+                    //New quotation items in database
+                        quotation_items itemsa = new quotation_items();
+                        itemsa.desc_ = brand.item_desc;
+                        itemsa.item_code = item_qoue.item_code;
+                        decimal pr = Convert.ToDecimal(item_qoue.unit_price);
+                        decimal vog = pr * Convert.ToDecimal(brand.quantity);                        
+                        itemsa.quotation_code = quote_ID;
+                        itemsa.quantity = Convert.ToInt32(brand.quantity);
+                        itemsa.value_of_good = vog;
+                        vendor.quotation_items.Add(itemsa);
+                        vendor.SaveChanges();
+                        
 
-        //        if (mv.item_code>0)
-        //        {
-        //            requisation_items req = db.requisation_items.SingleOrDefault(x => x.item.item_code == mv.item_code);
-        //            req.item.item_name=mv.item_name;
-        //            req.item.item_desc=mv.item_desc;
-        //            req.item.item_category.item_category_name=mv.item_category_name;
-        //            req.item.item_brand.item_brand_name = mv.item_brand_name;
-        //            req.item.measured_in = mv.measured_in;
-        //            req.item.size = mv.size;
-        //            req.item.unit_price = mv.unit_price;
-        //            req.quantity = mv.quantity;                    
-        //        }
-        //        else
-        //        {
-        //            item i = new item();
-        //            i.item_name = mv.item_name;
-        //            i.item_desc = mv.item_desc;
-        //            db.items.Add(i);
-        //            db.SaveChanges();
-        //        }
-        //        return View(mv);
-        //    }
+                    }                         
+                quotation price = vendor.quotations.FirstOrDefault(x=>x.quotation_code==quote_ID);
+                price.total_price =ListVOG.Sum();
+                vendor.SaveChanges();
+                TempData["Message"] = "<script>alert('Quotation for Supplier submitted! You will be updated later on progress of order.')</script>";
 
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}       
-
-        //public ActionResult edit_item(int? item_code)
-        //{
-        //    db_vendor vendor = new db_vendor();
-        //    Bidding_Window_ViewModel item_present = new Bidding_Window_ViewModel();
-        //    List<Bidding_Window_ViewModel> list = new List<Bidding_Window_ViewModel>();
-        //    if (item_code >0)
-        //    {
-
-        //        item req = vendor.items.Where(x => x.item_code == item_code).FirstOrDefault();
-        //        item_present.item_code = req.item_code;
-        //        item_present.item_name = req.item_name;
-        //        item_present.item_desc = req.item_desc;
-        //        list.Add(item_present);
-        //    }
-        //    return PartialView("edit_item", list);
-        //}
-        //[HttpPost]
-        //public JsonResult edit_item(Bidding_Window_ViewModel present)
-        //{
-        //    db_vendor vendor = new db_vendor();
-        //    item reqi = vendor.items.Where(x => x.item_code == present.item_code).FirstOrDefault();
-        //    item reqis = new item();
-        //    reqis.item_code = present.item_code;
-        //    reqis.item_name = present.item_name;
-        //    reqis.item_desc = present.item_desc;
-        //    vendor.SaveChanges();
-        //    return Json(reqi,JsonRequestBehavior.AllowGet);
-        //}
-
+             
+            return Json(TempData["Message"]);
+                // return View(mv);
+        }           
     }
 }
 

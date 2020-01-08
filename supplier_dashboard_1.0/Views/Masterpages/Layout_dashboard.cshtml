@@ -1,13 +1,16 @@
 ﻿<!DOCTYPE html>
 @{
-    if (Session["UI"] == null)
-    {
+    if (Session["user"] == null)
+    {        
         Response.Redirect("~/Home/Index");
     }
-
-
 }
-@{string sess = Session["UI"].ToString(); }
+
+@{
+    string ctrName = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -17,53 +20,60 @@
     <script src="~/Scripts/umd/popper.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Layoutcss/StyleSheet.css" rel="stylesheet" />
-    <title>@ViewBag.Title - Vendor Assistance</title>
+    <script src="~/Scripts/jquery.js"></script>
+    <title>@ViewBag.Title @Session["fullname"] </title>
 </head>
 <body>
     <div id="page-content-wrapper">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="margin-bottom:20px;">
-            <a class="navbar-brand" href="#">@sess </a>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand  text-capitalize text-center fa-navicon" style="font-family:'Berlin Sans FB'; " href="@Url.Action("Index","Dashboard")">  <img src="~/Content/asset/img/logo_vendor_assistance.ico" style="width:40px;margin-top:10px;" />&nbsp;Supplier's Assistant </a>
             <button class="navbar-toggler" aria-expanded="false" aria-controls="navbarsExampleDefault" aria-label="Toggle navigation" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="@Url.Action("Index","Dashboard")">Home <span class="sr-only">(current)</span></a>
+                    <li @if(ctrName == "Dashboard"){<text> class="nav-item active"</text>}>
+                        <a class="nav-link" href="@Url.Action("Index","Dashboard")">Home </a>
                     </li>
-                    <li class="nav-item">
+                    <li  @if(ctrName == "BiddingWindow"){<text> class="nav-item active"</text>}>
                         <a class="nav-link" href="@Url.Action("Index","BiddingWindow")">Bidding Window</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index","OrderPanel")">Orders </a>
+                    <li @if(ctrName == "Order"){<text> class="nav-item active"</text>}>
+                        <a class="nav-link" href="@Url.Action("Index","Order")">Orders </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index","Profile")">Profile</a>
+                    <li @if(ctrName == "Profile"){<text> class="nav-item active"</text>}>
+                        <a class="nav-link" href="@Url.Action("Index","Profile")">Profile  </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index","Contacts")">Contact Us</a>
+                    <li @if(ctrName == "Contacts"){<text> class="nav-item active"</text>}>
+                        <a class="nav-link" href="@Url.Action("Index","Contact")">Contact Us</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("LogOut","Home")"> <span class="glyphicon glyphicon-log-out"></span> &nbsp; Log Out</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="@Url.Action("LogOut","Home")">Log Out</a>
                     </li>
 
-                </ul>
-                @*<form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" aria-label="Search" type="text" placeholder="Search">
-                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>*@
+
+                </ul>   
             </div>
         </nav>
-
-
-        <div style="margin-top:40px; margin-left:2%; margin-right:2%">
+        <div style="margin-top:70px; margin-left:2%; margin-right:2%">
             @RenderBody()
         </div>
     </div>
-  
-    <script src="~/Scripts/jquery-3.4.1.slim.min.js" crossorigin="anonymous" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"></script>
-    <script>window.jQuery || document.write('<script src="/docs/4.4/assets/js/vendor/jquery.slim.min.js"><\/script>')</script>
-    <script src="~/Scripts/bootstrap.bundle.min.js" crossorigin="anonymous" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"></script>
 
+    <script src="~/Scripts/jquery-3.4.1.slim.min.js" crossorigin="anonymous" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js" crossorigin="anonymous" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   
+        <script>
+            $(function () {
+                $(".nav-item").click(function () {
+                    var callItem = $(this);
+                    callItem.addClass('active');
+                    $(".nav-item").not(callItem).removeClass('active');
+                });
+            });
+        </script>
 </body>
 </html>

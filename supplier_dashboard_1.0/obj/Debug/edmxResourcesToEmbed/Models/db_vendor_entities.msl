@@ -223,6 +223,8 @@
     <EntitySetMapping Name="system_order">
       <EntityTypeMapping TypeName="db_vendorModel.system_order">
         <MappingFragment StoreEntitySet="system_order">
+          <ScalarProperty Name="customer_requisation_arrived" ColumnName="customer_requisation_arrived" />
+          <ScalarProperty Name="best_supplier_selected" ColumnName="best_supplier_selected" />
           <ScalarProperty Name="mailed_deliverychallan_invoice_to_customer" ColumnName="mailed_deliverychallan_invoice_to_customer" />
           <ScalarProperty Name="mailed_salestaxinvoice_to_customer" ColumnName="mailed_salestaxinvoice_to_customer" />
           <ScalarProperty Name="mailed_quotation_to_customer" ColumnName="mailed_quotation_to_customer" />

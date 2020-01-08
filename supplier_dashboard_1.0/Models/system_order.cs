@@ -37,6 +37,8 @@ namespace supplier_dashboard_1._0.Models
         public Nullable<bool> mailed_quotation_to_customer { get; set; }
         public Nullable<bool> mailed_salestaxinvoice_to_customer { get; set; }
         public Nullable<bool> mailed_deliverychallan_invoice_to_customer { get; set; }
+        public Nullable<bool> best_supplier_selected { get; set; }
+        public Nullable<bool> customer_requisation_arrived { get; set; }
     
         public virtual db_User db_User { get; set; }
         public virtual db_User db_User1 { get; set; }

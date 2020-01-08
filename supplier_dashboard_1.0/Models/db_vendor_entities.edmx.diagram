@@ -5,26 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="06cb05c220bc4a58b0e296f858a7a1be" Name="Diagram1" ZoomLevel="77">
-        <EntityTypeShape EntityType="db_vendorModel.customers_requisation" Width="1.5" PointX="5.25" PointY="24.875" />
-        <EntityTypeShape EntityType="db_vendorModel.db_User" Width="1.5" PointX="3" PointY="17.125" />
-        <EntityTypeShape EntityType="db_vendorModel.DC_invoice" Width="1.5" PointX="5.25" PointY="21.125" />
-        <EntityTypeShape EntityType="db_vendorModel.DC_items" Width="1.5" PointX="7.5" PointY="19.375" />
-        <EntityTypeShape EntityType="db_vendorModel.Email" Width="1.5" PointX="5.25" PointY="13.75" />
-        <EntityTypeShape EntityType="db_vendorModel.general_sales_Invoice" Width="1.5" PointX="7.5" PointY="23.125" />
-        <EntityTypeShape EntityType="db_vendorModel.general_sales_items" Width="1.5" PointX="9.75" PointY="23.375" />
-        <EntityTypeShape EntityType="db_vendorModel.item" Width="1.5" PointX="3" PointY="11.375" />
-        <EntityTypeShape EntityType="db_vendorModel.item_brand" Width="1.5" PointX="0.75" PointY="13.75" />
-        <EntityTypeShape EntityType="db_vendorModel.item_category" Width="1.5" PointX="0.75" PointY="11.5" />
-        <EntityTypeShape EntityType="db_vendorModel.PO" Width="1.5" PointX="10.5" PointY="27.75" />
-        <EntityTypeShape EntityType="db_vendorModel.PO_items" Width="1.5" PointX="15.75" PointY="28.5" />
-        <EntityTypeShape EntityType="db_vendorModel.quotation" Width="1.5" PointX="5.25" PointY="28.375" />
-        <EntityTypeShape EntityType="db_vendorModel.quotation_items" Width="1.5" PointX="7.5" PointY="30.875" />
-        <EntityTypeShape EntityType="db_vendorModel.requisation_items" Width="1.5" PointX="7.5" PointY="26.875" />
-        <EntityTypeShape EntityType="db_vendorModel.ST_invoice" Width="1.5" PointX="12.75" PointY="28.125" />
-        <EntityTypeShape EntityType="db_vendorModel.ST_items" Width="1.5" PointX="15" PointY="32.5" />
-        <EntityTypeShape EntityType="db_vendorModel.supplier_items" Width="1.5" PointX="5.25" PointY="18.375" />
-        <EntityTypeShape EntityType="db_vendorModel.system_order" Width="1.5" PointX="5.375" PointY="36.25" />
-        <EntityTypeShape EntityType="db_vendorModel.user_desc" Width="1.5" PointX="0.75" PointY="17.125" />
+        <EntityTypeShape EntityType="db_vendorModel.customers_requisation" Width="1.5" PointX="5.25" PointY="11.125" />
+        <EntityTypeShape EntityType="db_vendorModel.db_User" Width="1.5" PointX="3" PointY="17.375" />
+        <EntityTypeShape EntityType="db_vendorModel.DC_invoice" Width="1.5" PointX="8.25" PointY="18.375" />
+        <EntityTypeShape EntityType="db_vendorModel.DC_items" Width="1.5" PointX="10.5" PointY="18.5" />
+        <EntityTypeShape EntityType="db_vendorModel.Email" Width="1.5" PointX="5.25" PointY="35.125" />
+        <EntityTypeShape EntityType="db_vendorModel.general_sales_Invoice" Width="1.5" PointX="9.75" PointY="28.625" />
+        <EntityTypeShape EntityType="db_vendorModel.general_sales_items" Width="1.5" PointX="12" PointY="28.875" />
+        <EntityTypeShape EntityType="db_vendorModel.item" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="db_vendorModel.item_brand" Width="1.5" PointX="3" PointY="7.875" />
+        <EntityTypeShape EntityType="db_vendorModel.item_category" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="db_vendorModel.PO" Width="1.5" PointX="7.5" PointY="28" />
+        <EntityTypeShape EntityType="db_vendorModel.PO_items" Width="1.5" PointX="9.75" PointY="24.75" />
+        <EntityTypeShape EntityType="db_vendorModel.quotation" Width="1.5" PointX="5.25" PointY="39.25" />
+        <EntityTypeShape EntityType="db_vendorModel.quotation_items" Width="1.5" PointX="7.5" PointY="39.75" />
+        <EntityTypeShape EntityType="db_vendorModel.requisation_items" Width="1.5" PointX="7.5" PointY="11.125" />
+        <EntityTypeShape EntityType="db_vendorModel.ST_invoice" Width="1.5" PointX="9.75" PointY="33.75" />
+        <EntityTypeShape EntityType="db_vendorModel.ST_items" Width="1.5" PointX="12" PointY="34.125" />
+        <EntityTypeShape EntityType="db_vendorModel.supplier_items" Width="1.5" PointX="5.25" PointY="17.625" />
+        <EntityTypeShape EntityType="db_vendorModel.system_order" Width="1.5" PointX="5.25" PointY="20.625" />
+        <EntityTypeShape EntityType="db_vendorModel.user_desc" Width="1.5" PointX="0.75" PointY="17.375" />
         <AssociationConnector Association="db_vendorModel.FK__customers__custo__07C12930" />
         <AssociationConnector Association="db_vendorModel.FK__requisati__requi__09A971A2" />
         <AssociationConnector Association="db_vendorModel.FK__db_User__user_de__59FA5E80" />

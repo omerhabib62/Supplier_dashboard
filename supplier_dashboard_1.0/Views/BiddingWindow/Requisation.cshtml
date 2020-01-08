@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<supplier_dashboard_1._0.Models.Bidding_Window_ViewModel>
 
-
 @{
 
     ViewBag.Title = "Bidding Window - Vendor Assistance";
     Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
 }
+@Html.Raw(TempData["Message"])
 <style>
     .validation {
         color: red;
@@ -62,114 +62,103 @@
 
 
 <div class="border w3-border-black" style="padding-left:10px;padding-right:10px;margin-bottom:100px;">
-    
-        <br />
-        <h3 class="text-center ">Proposed Items</h3>
-        <br />
-        <table class="table table-responsive table-dark table-bordered table-hover table-sm  text-center" id="tbl-items">
-            <thead class="thead-light ">
-                <tr style="margin-bottom:10px;">
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.item_desc)
+
+    <br />
+    <h3 class="text-center ">Proposed Items</h3>
+    <br />
+    <table class="table table-responsive table-dark table-bordered table-hover table-sm  text-center" id="tbl-items">
+        <thead class="thead-light ">
+            <tr style="margin-bottom:10px;">
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.item_desc)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.item_brand_name)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.measured_in)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.size)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.price_suggester)
+                </th>
+                <th class="col">
+                    @Html.DisplayNameFor(model => model.quantity)
+                </th>
+                <th class="col">
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="text-body">
+            @foreach (var item in Model)
+            {
+                <tr style="margin-bottom:10px; margin-top:20px;">
+                    <th>
+                        @Html.EditorFor(Model => item.item_desc, new { htmlAttributes = new { @class = "width400 margin_top-1" } })
                     </th>
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.item_brand_name)
+                    <th>
+                        @Html.EditorFor(model => item.item_brand_name, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
                     </th>
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.measured_in)
+                    <th>
+                        @Html.EditorFor(model => item.measured_in, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
                     </th>
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.size)
+                    <th>
+                        @Html.EditorFor(model => item.size, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
                     </th>
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.price_suggester)
+                    <th>
+                        @Html.EditorFor(model => item.price_suggester, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
                     </th>
-                    <th class="col">
-                        @Html.DisplayNameFor(model => model.quantity)
+                    <th>
+                        @Html.EditorFor(model => item.quantity, new { htmlAttributes = new { @class = "width50 margin_top-1" } })
+                        @*@Html.ValidationMessageFor(Model => item.quantity, "", new { @class = "validation" })*@
                     </th>
-                    <th class="col">
+
+                    <th>
+                        <input type="button" class="btn btn-danger margin_top" value="Remove" onclick="Remove(this)" />
                     </th>
                 </tr>
-            </thead>
+            }
+        </tbody>
 
-            <tbody class="text-body">
-                @foreach (var item in Model)
-                {
-                    <tr style="margin-bottom:10px; margin-top:20px;">
-                        <th>
-                            @Html.EditorFor(Model => item.item_desc, new { htmlAttributes = new { @class = "width400 margin_top-1" } })
-                        </th>
-                        <th>
-                            @Html.EditorFor(model => item.item_brand_name, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
-                        </th>
-                        <th>
-                            @Html.EditorFor(model => item.measured_in, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
-                        </th>
-                        <th>
-                            @Html.EditorFor(model => item.size, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
-                        </th>
-                        <th>
-                            @Html.EditorFor(model => item.price_suggester, new { htmlAttributes = new { @class = "width100 margin_top-1" } })
-                        </th>
-                        <th>
-                            @Html.EditorFor(model => item.quantity, new { htmlAttributes = new { @class = "width50 margin_top-1" } })
-                            @Html.ValidationMessageFor(Model => item.quantity, "", new { @class = "validation" })
-                        </th>
-                        
-                        <th>
-                            <input type="button" class="btn btn-danger margin_top" value="Remove" onclick="Remove(this)" />
-                        </th>
-                    </tr>
-                }
-            </tbody>
-
-            <tfoot style="background-color:aliceblue;  margin-top:8px;">
-                <tr style="border-color:black; padding-bottom:4px">
-                    <th>
-                        @Html.Editor("item_desc", new { htmlAttributes = new { @class = "width400 margin_top-1 margin-bottom-2", @id = "item_desc", @value=""} })
-                    </th>
-                    <th>
-                        @Html.Editor("item_brand_name", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "item_brand_name", @value = ""} })
-                    </th>
-                    <th>
-                        @Html.Editor("measured_in", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "measured_in", @value = "" } })
-                    </th>
-                    <th>
-                        @Html.Editor("size", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "size", @value = "" } })
-                    </th>
-                    <th>
-                        @Html.Editor("price_suggester", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "price_suggester", @value = "" } })
-                    </th>
-                    <th>
-                        @Html.Editor("quantity", new { htmlAttributes = new { @class = "width50 margin_top-1 margin-bottom-2", @id = "quantity", @value = "" } })
-                    </th>
-                    <th>
-                        <input type="button" style="width:82px" id="btnAdd" class="btn btn-success margin_top" value="Add" />
-                    </th>
-                </tr>
-            </tfoot>
-
-
-
-
-        </table>
-        <p class="text-center" style="margin-top:30px;">
-            <button type="button" id="submit-all" class="btn btn-dark " style="margin-bottom:20px;">
-                Submit All
-            </button>
-            
-        </p>
-    
+        <tfoot style="background-color:aliceblue;  margin-top:8px;">
+            <tr style="border-color:black; padding-bottom:4px">
+                <th>
+                    @Html.Editor("item_desc", new { htmlAttributes = new { @class = "width400 margin_top-1 margin-bottom-2", @id = "item_desc", @value = "" } })
+                </th>
+                <th>
+                    @Html.Editor("item_brand_name", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "item_brand_name", @value = "" } })
+                </th>
+                <th>
+                    @Html.Editor("measured_in", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "measured_in", @value = "" } })
+                </th>
+                <th>
+                    @Html.Editor("size", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "size", @value = "" } })
+                </th>
+                <th>
+                    @Html.Editor("price_suggester", new { htmlAttributes = new { @class = "width100 margin_top-1 margin-bottom-2", @id = "price_suggester", @value = "" } })
+                </th>
+                <th>
+                    @Html.Editor("quantity", new { htmlAttributes = new { @class = "width50 margin_top-1 margin-bottom-2", @id = "quantity", @value = "" } })
+                </th>
+                <th>
+                    <input type="button" style="width:82px" id="btnAdd" class="btn btn-success margin_top" value="Add" />
+                </th>
+            </tr>
+        </tfoot>
+    </table>
+    <p class="text-center" style="margin-top:30px;">
+        <button type="button" id="submit-all" class="btn btn-dark " style="margin-bottom:20px;">
+            Submit All
+        </button>
+    </p>
 </div>
-<script src="~/Scripts/json2.js"></script>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-<script src="~/Scripts/jquery.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-
-    
     $("body").on("click", "#btnAdd", function () {
 
         //Reference the TextBoxes.
@@ -197,7 +186,7 @@
         cell = $(row.insertCell(-1));
         var x = document.createElement("INPUT");
         cell.append(x);
-       x.value = txtitem_brand_name.val();
+        x.value = txtitem_brand_name.val();
         x.className = "width100 text-box single-line";
         x.id = "brand";
 
@@ -224,6 +213,7 @@
         d.value = txtprice_suggester.val();
         d.style.width = "100%";
         d.id = "Price";
+
         //Add quantity cell.
         cell = $(row.insertCell(-1));
         var e = document.createElement("INPUT");
@@ -234,7 +224,7 @@
 
         //Add Button cell.
         cell = $(row.insertCell(-1));
-        var btnRemove = $("<input class='btn btn-danger margin_top'/>");
+        var btnRemove = $("<input class='btn btn-danger margin_top' />");
         btnRemove.attr("type", "button");
         btnRemove.attr("onclick", "Remove(this);");
         btnRemove.val("Remove");
@@ -281,6 +271,8 @@
 </script>
 
 <script type="text/javascript">
+
+
     function checkundefined(a) {
         if (a == undefined) {
             return;
@@ -288,21 +280,25 @@
         return a;
     }
 
+    function getlen(inputid) {
+        var el = document.querySelectorAll("[id=" + inputid + "]");
+        return el.length;
+    }
+
     function checkbyid(inputid) {
         var el = document.querySelectorAll("[id=" + inputid + "]");
         var newArr = new Array(el.length);
-        //var returnvar;
         for (i = 0; i < el.length; i++) {
-            
             newArr[i] = el[i].value;
         }
         return newArr;
     }
+
+
     $("body").on("click", "#submit-all", function () {
-        
         //Loop through the Table rows and build a JSON array.
         var items = new Array();
-        
+
         $("#tbl-items TBODY TR").each(function () {
             var row = $(this);
             var item = {};
@@ -313,33 +309,41 @@
             item.price_suggester = checkundefined(row.find("TH").find("INPUT").eq(4).val());
             item.quantity = checkundefined(row.find("TH").find("INPUT").eq(5).val());
             items.push(item);
-        });
-        alert(items.item.item_desc);
-        $("#tbl-items TFOOT TR TH").each(function () {
-            //var row = $(this);
-            //var item = {};
-            item.item_desc = checkbyid("description");
-            
-            item.item_brand_name = checkbyid("brand");
-            item.measured_in = checkbyid("measure");
-            item.size = checkbyid("Size");
-            item.price_suggester = checkbyid("Price");
-            item.quantity = checkbyid("Quantity");
-            items.push(item);
+
         });
 
-        ////Send the JSON array to Controller using AJAX.  // / BiddingWindow / quotation_submit
-        //$.ajax({
-        //    type: "POST",
-        //    url: "/BiddingWindow/quotation_submit",
-        //    data: JSON.stringify(items),
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (r) {
-        //        alert(r + " record(s) inserted.");
-        //        location.reload();
-        //    }
-        //});
-        });
-    </script>
+        var l = getlen("description");
+        for (j = 0; j < l; j++) {
+            var item = {};
+            item.item_desc = checkbyid("description")[j];
+            item.item_brand_name = checkbyid("brand")[j];
+            item.measured_in = checkbyid("measure")[j];
+            item.size = checkbyid("Size")[j];
+            item.price_suggester = checkbyid("Price")[j];
+            item.quantity = checkbyid("Quantity")[j];
+             items.push(item);
+            //alert(j+ " "+ JSON.stringify(items));
+        }
+        var finarray = new Array();
+        for (i = 0; i < items.length; i++){
+            x = JSON.stringify(items[i]);
+            if (x.length > 2) {
+                finarray.push(items[i]);
+            }
+        }
+        //alert(JSON.stringify(finarray));
+
+        var MyUser = Object.assign(finarray);
+                MyUser.url = "@Url.Action("quotation_submit", "BiddingWindow")";
+                MyUser.type = "POST";
+                MyUser.dataType = "json";
+                MyUser.data = JSON.stringify({ ob: MyUser });
+        MyUser.contentType = "application/json";
+        MyUser.success = function (response) {
+            alert("Successfully ! Submitted Your Request For Given Requisation !")
+        };
+                $.ajax(MyUser);
+
+    });
+</script>
 

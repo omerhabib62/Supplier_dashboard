@@ -432,6 +432,8 @@
     <Property Name="mailed_quotation_to_customer" Type="Boolean" />
     <Property Name="mailed_salestaxinvoice_to_customer" Type="Boolean" />
     <Property Name="mailed_deliverychallan_invoice_to_customer" Type="Boolean" />
+    <Property Name="best_supplier_selected" Type="Boolean" />
+    <Property Name="customer_requisation_arrived" Type="Boolean" />
     <NavigationProperty Name="db_User" Relationship="db_vendorModel.FK__system_or__custo__6383C8BA" FromRole="system_order" ToRole="db_User" />
     <NavigationProperty Name="db_User1" Relationship="db_vendorModel.FK__system_or__suppl__6477ECF3" FromRole="system_order" ToRole="db_User" />
     <NavigationProperty Name="POes" Relationship="db_vendorModel.FK__PO__order_ID__70DDC3D8" FromRole="system_order" ToRole="PO" />

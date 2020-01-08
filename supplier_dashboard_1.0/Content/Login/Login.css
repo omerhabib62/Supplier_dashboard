@@ -1,0 +1,92 @@
+﻿body {
+    font-family: "Lato", sans-serif;
+}
+
+
+
+.main-head {
+    height: 150px;
+    background: #FFF;
+}
+
+.sidenav {
+    height: 100%;
+    background-color: #000;
+    overflow-x: hidden;
+    padding-top: 10px;
+}
+.form-field {
+    display: block;
+    width: 95%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 6px 12px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.main {
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .login-form {
+        margin-top: 5%;
+    }
+
+    .register-form {
+        margin-top: 25%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        margin-left: 40%;
+    }
+
+    .sidenav {
+        width: 37%;
+        ;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .login-form {
+        margin-top: 37%;
+        margin-left:4%;
+    }
+
+    .register-form {
+        margin-top: 15%;
+    }
+}
+
+
+.login-main-text {
+    margin-top: 16%;
+    padding: 60px;
+    color: #fff;
+}
+.login-main-text h2 {
+        font-weight: 400 ;
+}
+
+.btn-black {
+    background-color: #000 !important;
+    color: #fff;
+}

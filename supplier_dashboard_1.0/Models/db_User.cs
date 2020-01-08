@@ -37,6 +37,7 @@ namespace supplier_dashboard_1._0.Models
         public string user_loginID { get; set; }
         public string user_password { get; set; }
 
+        public bool RememberMe { get; set; }
         public string LoginErrorMessage { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -60,6 +61,6 @@ namespace supplier_dashboard_1._0.Models
         public virtual ICollection<system_order> system_order { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<system_order> system_order1 { get; set; }
-        
+     
     }
 }

@@ -3,7 +3,7 @@
 
 
     @{
-        ViewBag.Title = "Bidding Window Catalogue- Vendor Assistance";
+        ViewBag.Title = "Orders Catalogue- Vendor Assistance";
         Layout = "~/Views/Masterpages/Layout_dashboard.cshtml";
     }
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
@@ -16,15 +16,14 @@
         <table class="table table-bordered ">
             <tr  style="background-color: black; color:beige">
                 <th>
-                    @Html.DisplayNameFor(model => model.requisation_no)
+                    @Html.DisplayNameFor(Model => Model.requisation_no)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.requisation_description)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Date_of_requistion)
-                </th>
-                
+                </th>                
                 <th>
                     @Html.DisplayNameFor(model => model.quotation_deadline)
                 </th>

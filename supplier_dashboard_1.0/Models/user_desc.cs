@@ -40,5 +40,7 @@ namespace supplier_dashboard_1._0.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<db_User> db_User { get; set; }
+
+        public string ResetPasswordCode { get;  set; }
     }
 }
